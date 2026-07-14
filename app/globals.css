@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --ivory: #f8f4ed;
+  --cream: #efe7da;
+  --espresso: #2b211c;
+  --taupe: #9c8f84;
+  --blush: #c7a6a0;
+  --charcoal: #1f1f1f;
+  --forest: #3b5d4a;
+  --sage: #dde3d3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--espresso);
+  font-family:
+    Inter, "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+}
+
+::selection {
+  background: var(--blush);
+  color: var(--espresso);
+}
+
+.font-editorial {
+  font-family:
+    Didot, "Bodoni 72", "Bodoni 72 Oldstyle", "Libre Baskerville", Georgia,
+    "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}

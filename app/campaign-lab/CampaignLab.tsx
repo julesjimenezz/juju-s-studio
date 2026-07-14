@@ -1,0 +1,150 @@
+"use client";
+
+import { useState } from "react";
+
+export type Campaign = {
+  trend: string;
+  trendCategory: string;
+  campaignName: string;
+  tagline: string;
+  insight: string;
+  pillars: string[];
+  social: { channel: string; idea: string }[];
+  email: { subject: string; concept: string };
+  influencer: { archetype: string; ask: string };
+  launchMoment: string;
+};
+
+function BriefBlock({
+  label,
+  children
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/45 p-5">
+      <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#9C8F84]">
+        {label}
+      </p>
+      <div className="mt-2 text-sm leading-6 text-[#2B211C]/85">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export function CampaignLab({ campaigns }: { campaigns: Campaign[] }) {
+  const [selected, setSelected] = useState(0);
+  const campaign = campaigns[selected];
+
+  return (
+    <div>
+      <div className="flex flex-wrap justify-center gap-2">
+        {campaigns.map((c, index) => (
+          <button
+            key={c.trend}
+            type="button"
+            onClick={() => setSelected(index)}
+            className={`rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
+              selected === index
+                ? "border-[#3B5D4A] bg-[#3B5D4A] text-[#F8F4ED]"
+                : "border-[#2B211C]/20 bg-[#F8F4ED]/60 text-[#2B211C]/70 hover:border-[#2B211C]/45"
+            }`}
+          >
+            {c.trend}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-10 overflow-hidden rounded-[2.1rem] border border-[#2B211C]/10 bg-[#F8F4ED] shadow-[0_34px_95px_rgba(43,33,28,0.1)]">
+        <div className="border-b border-[#2B211C]/10 p-6 md:p-10">
+          <div className="flex flex-wrap items-center gap-3 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#9C8F84]">
+            <span>Campaign Concept</span>
+            <span className="h-px w-8 bg-[#2B211C]/15" />
+            <span>Built from: {campaign.trend}</span>
+            <span className="rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.62rem] tracking-[0.14em] text-[#2B211C]">
+              {campaign.trendCategory}
+            </span>
+          </div>
+          <h2 className="font-editorial mt-5 text-[2.5rem] leading-[1.02] text-[#2B211C] md:text-[3.5rem]">
+            {campaign.campaignName}
+          </h2>
+          <p className="font-editorial mt-3 text-xl italic text-[#2B211C]/70 md:text-2xl">
+            {campaign.tagline}
+          </p>
+          <p className="mt-6 max-w-2xl border-l border-[#C7A6A0]/70 pl-4 text-sm font-medium leading-7 text-[#2B211C]/65">
+            {campaign.insight}
+          </p>
+        </div>
+
+        <div className="grid gap-8 p-6 md:p-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#9C8F84]">
+              Campaign Pillars
+            </p>
+            <div className="mt-4 flex flex-col gap-3">
+              {campaign.pillars.map((pillar, index) => (
+                <div
+                  key={pillar}
+                  className="flex items-center gap-3 rounded-[1.1rem] border border-[#2B211C]/10 bg-white/45 px-4 py-3"
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#C7A6A0]/40 bg-[#C7A6A0]/18 text-[0.65rem] font-bold text-[#2B211C]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-sm font-semibold text-[#2B211C]">
+                    {pillar}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[1.35rem] bg-[#3B5D4A] p-5 text-[#F8F4ED]">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#EFE7DA]/70">
+                Launch Moment
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[#F8F4ED]/90">
+                {campaign.launchMoment}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/45 p-5">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#9C8F84]">
+                Social Content Ideas
+              </p>
+              <div className="mt-2 divide-y divide-[#2B211C]/10">
+                {campaign.social.map((item) => (
+                  <div key={item.channel} className="py-3 first:pt-2 last:pb-0">
+                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.16em] text-[#2B211C]">
+                      {item.channel}
+                    </p>
+                    <p className="mt-1.5 text-sm leading-6 text-[#2B211C]/85">
+                      {item.idea}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <BriefBlock label="Email Concept">
+                <p className="font-semibold text-[#2B211C]">
+                  "{campaign.email.subject}"
+                </p>
+                <p className="mt-2">{campaign.email.concept}</p>
+              </BriefBlock>
+              <BriefBlock label="Influencer Concept">
+                <p className="font-semibold text-[#2B211C]">
+                  {campaign.influencer.archetype}
+                </p>
+                <p className="mt-2">{campaign.influencer.ask}</p>
+              </BriefBlock>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
