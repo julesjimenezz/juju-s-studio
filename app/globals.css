@@ -39,3 +39,22 @@ body {
   font-weight: 400;
   letter-spacing: 0.01em;
 }
+
+/* Lets any page export a single element (e.g. a live AI-generated result)
+   as a clean PDF via the browser's own print dialog ("Save as PDF"),
+   hiding everything else on the page. Reusable across modules. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-target,
+  .print-target * {
+    visibility: visible;
+  }
+  .print-target {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

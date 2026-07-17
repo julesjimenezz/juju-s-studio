@@ -9,65 +9,65 @@ const platformCards = [
   },
   {
     title: "Campaign Strategy",
-    text: "Turn cultural moments into campaign names, launch angles, email ideas, and influencer concepts."
+    text: "Turn trends into campaign names, launch angles, and influencer concepts."
   },
   {
     title: "Product Opportunities",
-    text: "Translate customer behavior into product edits, bundles, merchandising ideas, and retail moments."
+    text: "Translate customer behavior into product edits, bundles, and retail moments."
   },
   {
     title: "Customer Insights",
-    text: "Connect trends to shopper needs, lifestyle moments, and brand opportunities."
+    text: "Connect trends to shopper needs and brand opportunities."
   }
 ];
 
 const teamCards = [
   {
     title: "Marketing Teams",
-    text: "Campaign concepts, launch angles, seasonal moments, and email ideas."
+    text: "Campaign concepts, launch angles, and seasonal moments."
   },
   {
     title: "Social & Influencer Teams",
-    text: "TikTok hooks, content pillars, creator concepts, and community-first ideas."
+    text: "TikTok hooks, content pillars, and creator concepts."
   },
   {
     title: "Buying & Merchandising Teams",
-    text: "Trend-backed product edits, assortment ideas, bundles, and customer shopping moments."
+    text: "Trend-backed product edits, assortment ideas, and bundles."
   },
   {
     title: "Brand Strategy Teams",
-    text: "Customer insights, positioning ideas, cultural relevance, and competitive angles."
+    text: "Customer insights, positioning, and cultural relevance."
   }
 ];
 
 const moduleCards = [
   {
     title: "Trend Dashboard",
-    text: "See emerging fashion and beauty trends with customer insights and business opportunities.",
+    text: "See emerging trends, with the insight and opportunity behind each.",
     href: "/trend-dashboard",
     image: "/module-images/trend-dashboard.jpg"
   },
   {
     title: "Campaign Lab",
-    text: "Turn a selected trend into a full campaign concept with social, email, influencer, and launch ideas.",
+    text: "Turn a trend into a full campaign concept.",
     href: "/campaign-lab",
     image: "/module-images/campaign-lab.jpg"
   },
   {
     title: "Product Opportunity Studio",
-    text: "Explore product edits, bundles, and merchandising recommendations based on trend behavior.",
+    text: "Turn a trend into product edits, bundles, and merchandising ideas.",
     href: "/product-opportunity-studio",
     image: "/module-images/product-opportunity-studio.jpg"
   },
   {
     title: "Customer Insight Board",
-    text: "Understand the customer behind each trend: what they want, why they want it, and how brands can meet them.",
+    text: "Understand the shopper behind each trend.",
     href: "/customer-insight-board",
     image: "/module-images/customer-insight-board.jpg"
   },
   {
     title: "Retail Selling Assistant",
-    text: "Future module that helps store teams translate corporate campaigns into styling, upselling, and clienteling support.",
+    text: "Helps store teams bring campaigns to the sales floor.",
     image: "/module-images/retail-selling-assistant.jpg"
   }
 ];
@@ -76,20 +76,20 @@ const workflow = [
   ["Trend", "Elevated Minimalism"],
   [
     "Insight",
-    "Head-to-toe black tailoring dominated Milan's Fall 2026 runways, signaling a return to structured power dressing after several seasons of maximalism."
+    "Head-to-toe black tailoring is back, signaling a return to structured power dressing."
   ],
   ["Campaign Idea", "Back to Power"],
   [
     "Product Opportunity",
-    "Structured wool blazer, straight-leg trouser, silk camisole, sculptural leather bag, pointed-toe flat."
+    "Wool blazer, straight-leg trouser, silk camisole, sculptural bag."
   ],
   [
     "Social Direction",
-    "\"One blazer, five outfits\" styling challenges, runway-to-real-life edits, and Power Look of the Week features."
+    "\"One blazer, five outfits\" challenges and runway-to-real-life edits."
   ],
   [
     "Retail Angle",
-    "Sell versatility, not newness. Show one considered piece working across office, dinner, and travel."
+    "Sell versatility, not newness — one piece across office, dinner, and travel."
   ]
 ];
 
@@ -107,18 +107,17 @@ export default function Home() {
             AI-powered strategy for fashion and beauty teams.
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-8 text-[#2B211C]/75">
-            Juju's Studio helps brands turn emerging trends into campaign
-            ideas, product opportunities, social content, and customer insights,
-            all in one simple workspace.
+            Turn trends into campaigns, products, and customer insight &mdash;
+            all in one workspace.
           </p>
           <p className="mt-5 max-w-xl border-l border-[#C7A6A0]/70 pl-4 text-sm font-medium leading-7 text-[#2B211C]/65">
             Created by Jules Jimenez, a UC Berkeley graduate exploring the
             future of fashion, beauty, and AI.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button>Explore the Prototype</Button>
+            <Button>Explore the Studio</Button>
             <Button variant="secondary" href="/#workflow">
-              View the Strategy
+              See How It Works
             </Button>
           </div>
         </div>
@@ -147,30 +146,94 @@ export default function Home() {
               </div>
 
               <div className="mt-6 grid gap-3">
-                {[
-                  ["Customer Mood", "Confident, disciplined, quietly powerful"],
-                  ["Campaign Concept", "Back to Power"],
-                  [
-                    "Product Edit",
-                    "Wool blazer · straight-leg trouser · silk camisole · sculptural bag"
-                  ],
-                  [
-                    "Content Direction",
-                    "One-blazer styling challenges · runway-to-real-life edits"
-                  ]
-                ].map(([label, value]) => (
-                  <div
-                    key={label}
-                    className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]"
-                  >
-                    <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#9C8F84]">
-                      {label}
-                    </p>
-                    <p className="mt-2 text-base font-semibold leading-6">
-                      {value}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col items-center justify-center rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
+                    <svg viewBox="0 0 160 92" className="w-full max-w-[150px]">
+                      <path
+                        d="M 18 78 A 62 62 0 0 1 142 78"
+                        fill="none"
+                        stroke="#2B211C"
+                        strokeOpacity="0.1"
+                        strokeWidth="13"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M 18 78 A 62 62 0 0 1 142 78"
+                        fill="none"
+                        stroke="#3B5D4A"
+                        strokeWidth="13"
+                        strokeLinecap="round"
+                        strokeDasharray="159.7 194.8"
+                      />
+                      <text
+                        x="80"
+                        y="74"
+                        textAnchor="middle"
+                        className="font-editorial"
+                        fontSize="30"
+                        fill="#2B211C"
+                      >
+                        82
+                      </text>
+                    </svg>
+                    <p className="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#9C8F84]">
+                      Trend Momentum
                     </p>
                   </div>
-                ))}
+                  <div className="grid gap-3">
+                    <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
+                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#9C8F84]">
+                        Opportunity
+                      </p>
+                      <p className="mt-1 font-editorial text-2xl leading-none text-[#2B211C]">
+                        71
+                      </p>
+                    </div>
+                    <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
+                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#9C8F84]">
+                        Primary Channel
+                      </p>
+                      <p className="mt-1 font-editorial text-xl leading-none text-[#2B211C]">
+                        TikTok
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
+                  <div className="flex items-center justify-between">
+                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-[#9C8F84]">
+                      Channel Priority
+                    </p>
+                    <span className="rounded-full border border-[#3B5D4A]/30 bg-[#3B5D4A]/10 px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-[0.14em] text-[#3B5D4A]">
+                      AI analysis
+                    </span>
+                  </div>
+                  <div className="mt-3 flex flex-col gap-2.5">
+                    {[
+                      ["TikTok", "92", "100%"],
+                      ["Reels", "74", "80%"],
+                      ["UGC", "58", "63%"]
+                    ].map(([name, score, width]) => (
+                      <div key={name}>
+                        <div className="mb-1 flex items-baseline justify-between">
+                          <span className="text-xs font-semibold text-[#2B211C]">
+                            {name}
+                          </span>
+                          <span className="text-[0.65rem] font-bold text-[#3B5D4A]">
+                            {score}
+                          </span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-full bg-[#2B211C]/8">
+                          <div
+                            className="h-full rounded-full bg-[#3B5D4A]"
+                            style={{ width }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -180,20 +243,16 @@ export default function Home() {
       <section className="border-y border-[#2B211C]/10 bg-[#EFE7DA]/65 px-5 py-20 md:px-8">
         <SectionHeading
           eyebrow="The Problem"
-          title="Fashion and beauty move fast. Strategy should move with it."
-          body="Trends now move across TikTok, retail, creators, product launches, and customer behavior at the same time. But brand teams often have to translate those signals into campaigns, product ideas, content plans, and merchandising moments across separate workflows. Juju's Studio is designed to make that process simpler, clearer, and more connected."
+          title="Fashion and beauty move fast. Strategy should keep up."
+          body="Trends move across TikTok, retail, creators, and culture all at once. Brand teams juggle separate tools to turn those signals into campaigns, products, and content. Juju's Studio brings it into one place."
         />
       </section>
 
       <section id="platform" className="mx-auto max-w-7xl px-5 py-20 md:px-8">
         <SectionHeading title="One workspace for turning trends into action." />
         <div className="mt-12 grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {platformCards.map((card, index) => (
-            <InfoCard
-              key={card.title}
-              eyebrow={`${String(index + 1).padStart(2, "0")}`}
-              {...card}
-            />
+          {platformCards.map((card) => (
+            <InfoCard key={card.title} {...card} />
           ))}
         </div>
       </section>
@@ -204,8 +263,11 @@ export default function Home() {
       >
         <div className="mx-auto max-w-6xl">
           <h2 className="font-editorial max-w-3xl text-4xl leading-[1.04] md:text-6xl">
-            From trend to strategy in one simple flow.
+            From trend to strategy, step by step.
           </h2>
+          <p className="mt-5 max-w-xl text-base leading-7 text-[#F8F4ED]/75">
+            One trend, followed all the way through.
+          </p>
           <div className="mt-10 overflow-hidden rounded-[1.6rem] border border-[#F8F4ED]/14">
             {workflow.map(([label, value], index) => (
               <div
@@ -230,7 +292,7 @@ export default function Home() {
       </section>
 
       <section id="teams" className="mx-auto max-w-7xl px-5 py-20 md:px-8">
-        <SectionHeading title="Built for the teams shaping what customers want next." />
+        <SectionHeading title="Built for the teams shaping what's next." />
         <div className="mt-12 grid items-stretch gap-5 md:grid-cols-2">
           {teamCards.map((card) => (
             <InfoCard key={card.title} {...card} />
@@ -243,7 +305,7 @@ export default function Home() {
         className="border-y border-[#2B211C]/10 bg-[#EFE7DA]/65 px-5 py-20 md:px-8"
       >
         <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="Prototype Modules" title="Inside Juju's Studio" />
+          <SectionHeading eyebrow="The Studio" title="Inside Juju's Studio" />
           <div className="mt-12 grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
             {moduleCards.map((card) => (
               <InfoCard
@@ -279,21 +341,17 @@ export default function Home() {
             </h2>
             <div className="mt-7 h-px w-24 bg-[#C7A6A0]/75" />
             <p className="mt-7 text-base leading-8 text-[#2B211C]/75 md:text-lg">
-              As a recent UC Berkeley graduate interested in fashion, beauty,
-              brand strategy, and AI, I wanted to create more than a traditional
-              portfolio. I built Juju's Studio to show how I think through
-              trends, customers, campaigns, product opportunities, and the
-              future of work in fashion and beauty. This project reflects the
-              kind of value I want to bring to a team: creative thinking,
-              strategic problem-solving, strong taste, and the ability to use AI
-              to make ideas more actionable.
+              I'm Jules Jimenez, a UC Berkeley graduate who believes fashion and
+              beauty teams deserve better tools. I built Juju's Studio to turn
+              the way great strategists think &mdash; through trends, customers,
+              and campaigns &mdash; into something any team can actually use.
             </p>
             <div className="mt-9 flex flex-col gap-1 border-t border-[#2B211C]/10 pt-7">
               <p className="font-editorial text-4xl italic leading-none text-[#2B211C]">
                 Jules Jimenez
               </p>
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#9C8F84]">
-                Creator of Juju's Studio
+                Founder, Juju's Studio
               </p>
             </div>
           </div>
@@ -304,29 +362,28 @@ export default function Home() {
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.2rem] bg-[#3B5D4A] px-6 py-16 text-center text-[#F8F4ED] shadow-[0_28px_80px_rgba(59,93,74,0.2)] md:px-12 md:py-20">
           <div className="mx-auto mb-7 flex max-w-sm items-center gap-4 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#EFE7DA]/65">
             <span className="h-px flex-1 bg-[#F8F4ED]/20" />
-            <span>Recruiter Ready Concept</span>
+            <span>For Fashion &amp; Beauty Teams</span>
             <span className="h-px flex-1 bg-[#F8F4ED]/20" />
           </div>
           <h2 className="font-editorial mx-auto max-w-4xl text-4xl leading-[1.02] md:text-6xl">
-            A prototype for the future of fashion and beauty strategy.
+            The future of fashion and beauty strategy.
           </h2>
           <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-[#F8F4ED]/75 md:text-lg">
-            Juju's Studio is a recruiter-ready concept designed to explore how
-            AI can help fashion and beauty teams work faster, think clearer, and
-            turn culture into strategy.
+            Juju's Studio helps teams turn culture into strategy &mdash; grounded
+            in real trends, powered by AI.
           </p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <a
               href="#prototype"
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F8F4ED] px-7 text-sm font-semibold text-[#2B211C] shadow-[0_16px_36px_rgba(0,0,0,0.18)] transition hover:bg-[#EFE7DA]"
             >
-              View the Prototype
+              Get Started
             </a>
             <a
               href="#workflow"
               className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#F8F4ED]/30 bg-[#F8F4ED]/5 px-7 text-sm font-semibold text-[#F8F4ED] transition hover:border-[#F8F4ED] hover:bg-[#F8F4ED]/10"
             >
-              See the Workflow Example
+              See How It Works
             </a>
           </div>
         </div>

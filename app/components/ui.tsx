@@ -75,27 +75,29 @@ export function InfoCard({
           <img src={image} alt="" className="h-full w-full object-cover" />
         </div>
       ) : null}
-      <div className="mb-7 flex min-h-6 items-center justify-between gap-3">
-        {eyebrow ? (
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#9C8F84]">
-            {eyebrow}
-          </p>
-        ) : (
-          <span />
-        )}
-        {badge ? (
-          <span className="whitespace-nowrap rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#2B211C]">
-            {badge}
-          </span>
-        ) : null}
-      </div>
+      {eyebrow || badge ? (
+        <div className="mb-7 flex min-h-6 items-center justify-between gap-3">
+          {eyebrow ? (
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#9C8F84]">
+              {eyebrow}
+            </p>
+          ) : (
+            <span />
+          )}
+          {badge ? (
+            <span className="whitespace-nowrap rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#2B211C]">
+              {badge}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
       <h3 className="font-editorial text-[2rem] leading-[1.02] text-[#2B211C]">
         {title}
       </h3>
       <p className="mt-5 text-sm leading-7 text-[#2B211C]/68">{text}</p>
       {href ? (
-        <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-[#2B211C]/55">
-          Open module →
+        <p className="mt-auto pt-6 text-xs font-bold uppercase tracking-[0.16em] text-[#2B211C]/55">
+          Explore →
         </p>
       ) : null}
     </>

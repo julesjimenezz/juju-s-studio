@@ -10,7 +10,7 @@ const navigateLinks = [
 
 const exploreLinks = [
   { href: "/#platform", label: "Platform" },
-  { href: "/#workflow", label: "Workflow" },
+  { href: "/#workflow", label: "How It Works" },
   { href: "/#teams", label: "For Teams" },
   { href: "/#about", label: "About" }
 ];
@@ -32,9 +32,8 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div>
             <p className="text-base leading-7 text-[#2B211C]/65">
-              An AI-powered strategy studio concept for fashion and beauty
-              teams &mdash; turning culture into campaigns, product ideas, and
-              customer insight.
+              An AI strategy studio for fashion and beauty &mdash; turning
+              culture into campaigns, products, and customer insight.
             </p>
           </div>
 
@@ -102,8 +101,8 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-[#2B211C]/10 pt-7 text-xs text-[#2B211C]/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; 2026 Juju&rsquo;s Studio. A recruiter-ready concept by Jules Jimenez.</p>
-          <p className="uppercase tracking-[0.18em]">Prototype Concept</p>
+          <p>&copy; 2026 Juju&rsquo;s Studio. Built by Jules Jimenez.</p>
+          <p className="uppercase tracking-[0.18em]">AI Strategy Studio</p>
         </div>
       </div>
     </footer>

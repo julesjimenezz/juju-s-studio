@@ -7,7 +7,7 @@ import { CampaignLab, type Campaign } from "./CampaignLab";
 export const metadata: Metadata = {
   title: "Campaign Lab | Juju's Studio",
   description:
-    "Turn a selected trend into a full campaign concept with social, email, influencer, and launch ideas."
+    "Turn a trend into a full campaign concept — pillars, content ideas, why it works, and clear next steps."
 };
 
 const campaigns: Campaign[] = [
@@ -17,33 +17,28 @@ const campaigns: Campaign[] = [
     campaignName: "Back to Power",
     tagline: "Minimal color, maximum presence.",
     insight:
-      "Head-to-toe black tailoring dominated Milan's Fall 2026 runways, signaling a return to structured power dressing after several seasons of maximalism.",
-    pillars: ["The One-Blazer Capsule", "Tailoring, Not Trends", "Black on Black on Black"],
+      "Head-to-toe black tailoring took over Milan's Fall 2026 runways — a return to structured power dressing.",
+    whyThisWorks:
+      "Shoppers want fewer, better pieces that signal confidence. One hero blazer sells range, not newness.",
+    pillars: ["The One-Blazer Capsule", "Tailoring, Not Trends", "Black on Black"],
     social: [
-      {
-        channel: "TikTok",
-        idea: "\"One blazer, five outfits\" styling challenge shot entirely in monochrome to show range without new pieces."
-      },
-      {
-        channel: "Reels",
-        idea: "A slow-motion runway-to-real-life edit pairing Milan runway clips with the same silhouette styled for everyday wear."
-      },
-      {
-        channel: "UGC",
-        idea: "Customers submit their own all-black outfit for a \"Power Look of the Week\" feature."
-      }
+      { channel: "TikTok", idea: "\"One blazer, five outfits\" monochrome styling challenge." },
+      { channel: "Reels", idea: "Runway-to-real-life edit: Milan clips styled for everyday." },
+      { channel: "UGC", idea: "\"Power Look of the Week\" — customers share their all-black fit." }
     ],
     email: {
       subject: "Power dressing, minus the noise",
-      concept:
-        "A capsule showcase leading with the hero blazer, framed as a single confident purchase instead of a full new wardrobe."
+      concept: "Lead with the hero blazer as one confident buy, not a whole wardrobe."
     },
     influencer: {
-      archetype: "Tailoring-focused stylists and minimalist-wardrobe creators",
-      ask: "A capsule breakdown video showing the blazer styled three distinct ways over a week."
+      archetype: "Minimalist-wardrobe stylists",
+      ask: "Style the blazer three ways in one video."
     },
-    launchMoment:
-      "Early fall, when workwear searches spike and the transition from summer color back to structured dressing begins."
+    nextSteps: [
+      "Pick one hero blazer to anchor the capsule.",
+      "Shoot the \"one blazer, five outfits\" video first.",
+      "Launch early fall, when workwear searches spike."
+    ]
   },
   {
     trend: "Scent Stacking",
@@ -51,33 +46,28 @@ const campaigns: Campaign[] = [
     campaignName: "Build Your Signature",
     tagline: "One scent was never going to be enough.",
     insight:
-      "Shoppers are layering multiple fragrances to build a personal, bespoke scent instead of committing to one signature perfume, mirroring the mix-and-match approach already common in skincare.",
+      "Shoppers are layering fragrances to build a personal scent, like they already do with skincare.",
+    whyThisWorks:
+      "Layering turns one purchase into a routine — and a bespoke scent no one else has drives loyalty.",
     pillars: ["The Layering Starter Set", "Scent, Not Signature", "Mix It, Make It Yours"],
     social: [
-      {
-        channel: "TikTok",
-        idea: "\"Scent stacking\" tutorials showing a base fragrance layered with two accent scents, before-and-after on skin."
-      },
-      {
-        channel: "Reels",
-        idea: "A satisfying product-lineup shot of three minis being layered in sequence, set to trending audio."
-      },
-      {
-        channel: "UGC",
-        idea: "Customers share their personal stacking combo and name it, for a \"Scent of the Week\" community feature."
-      }
+      { channel: "TikTok", idea: "Base + two accents layering tutorial, before/after on skin." },
+      { channel: "Reels", idea: "Satisfying three-mini layering sequence to trending audio." },
+      { channel: "UGC", idea: "Customers name and share their signature combo." }
     ],
     email: {
       subject: "Stop settling for one scent",
-      concept:
-        "Introduce the layering starter set with a simple base-plus-two formula shoppers can follow immediately."
+      concept: "Introduce the starter set with a simple base-plus-two formula."
     },
     influencer: {
-      archetype: "Fragrance-focused creators who already post layering and \"scent wardrobe\" content",
-      ask: "A layering tutorial video building a signature combo live, using the starter set."
+      archetype: "Fragrance \"scent wardrobe\" creators",
+      ask: "Build a signature combo live using the set."
     },
-    launchMoment:
-      "Fall, when shoppers reset routines after summer and fragrance searches typically climb."
+    nextSteps: [
+      "Bundle a base scent with two layering oils.",
+      "Post one simple \"base + two\" formula.",
+      "Launch in fall, when routines reset."
+    ]
   },
   {
     trend: "Blurred Lips",
@@ -85,67 +75,57 @@ const campaigns: Campaign[] = [
     campaignName: "Soft Focus, Sharp Sales",
     tagline: "Precision is out. Diffusion is in.",
     insight:
-      "Soft-focus, diffused lip color is replacing sharp liner looks, with related search interest up roughly 300% as a softer \"your lips but better\" aesthetic returns.",
-    pillars: ["The No-Liner Lip", "Blur, Don't Line", "Just-Bitten, Not Just-Applied"],
+      "Soft, diffused lip color is replacing sharp liner looks — search interest up roughly 300%.",
+    whyThisWorks:
+      "The look needs no skill and no mirror. Ease of use is the whole selling point.",
+    pillars: ["The No-Liner Lip", "Blur, Don't Line", "Just-Bitten"],
     social: [
-      {
-        channel: "TikTok",
-        idea: "A one-swipe application demo proving the blurred finish requires zero mirror or liner skills."
-      },
-      {
-        channel: "Reels",
-        idea: "A macro close-up of the diffused edge effect, filmed to actually show texture on camera."
-      },
-      {
-        channel: "UGC",
-        idea: "Customers duet the application demo with their own \"blur test\" using the product."
-      }
+      { channel: "TikTok", idea: "One-swipe demo — no mirror, no liner needed." },
+      { channel: "Reels", idea: "Macro close-up of the diffused edge on camera." },
+      { channel: "UGC", idea: "Customers duet the demo with their own \"blur test.\"" }
     ],
     email: {
       subject: "The lip trend that forgives a shaky hand",
-      concept:
-        "Lead with ease of application as the hook, positioned against the precision required by liner-based looks."
+      concept: "Lead with ease, positioned against fussy liner routines."
     },
     influencer: {
-      archetype: "Everyday-makeup creators known for quick, low-effort routines",
-      ask: "A 15-second \"one swipe, no mirror\" application video."
+      archetype: "Quick, low-effort makeup creators",
+      ask: "A 15-second \"one swipe, no mirror\" video."
     },
-    launchMoment:
-      "Tied to the search spike already happening, launch fast rather than waiting for a seasonal moment."
+    nextSteps: [
+      "Lead every asset with the one-swipe demo.",
+      "Launch now — ride the current search spike.",
+      "Add a no-mirror testing station in-store."
+    ]
   },
   {
     trend: "Playful Tights",
     trendCategory: "Fashion",
     campaignName: "Legwear, Reconsidered",
-    tagline: "The cheapest outfit refresh you already forgot about.",
+    tagline: "The cheapest outfit refresh you forgot about.",
     insight:
-      "Tights moved from an afterthought to a styling tool for fall 2026, with pattern and color used as an easy way to refresh an existing outfit rather than buying something new.",
+      "Tights became a styling tool for fall 2026 — pattern and color refresh an outfit without buying new.",
+    whyThisWorks:
+      "It's the cheapest way to feel \"new\" — a $20 accessory, not a wardrobe overhaul.",
     pillars: ["Tights as Accessory", "One Skirt, Five Looks", "Pattern Play"],
     social: [
-      {
-        channel: "TikTok",
-        idea: "\"Same outfit, five tights\" styling video showing how much one accessory can change a look."
-      },
-      {
-        channel: "Reels",
-        idea: "A quick-swap transition video cycling through patterned tights under the same base outfit."
-      },
-      {
-        channel: "UGC",
-        idea: "Customers post their own tights-as-accessory styling for a repost."
-      }
+      { channel: "TikTok", idea: "\"Same outfit, five tights\" styling video." },
+      { channel: "Reels", idea: "Quick-swap transition through patterned tights." },
+      { channel: "UGC", idea: "Customers post their tights-as-accessory looks." }
     ],
     email: {
       subject: "The $20 outfit refresh you're sleeping on",
-      concept:
-        "Reframe tights as an accessory purchase, styled five ways with pieces the shopper likely already owns."
+      concept: "Reframe tights as an accessory, styled five ways."
     },
     influencer: {
-      archetype: "Budget-conscious styling creators known for \"re-wearing\" and outfit-repeating content",
-      ask: "A \"restyle my closet\" video using only tights to update three existing outfits."
+      archetype: "Budget styling / outfit-repeat creators",
+      ask: "Restyle three outfits using only tights."
     },
-    launchMoment:
-      "Early fall, as layering season begins and existing wardrobes need a low-cost refresh."
+    nextSteps: [
+      "Merchandise tights as an accessory, not a basic.",
+      "Shoot the \"five tights\" swap video.",
+      "Launch early fall, as layering starts."
+    ]
   },
   {
     trend: "Mini & Trial-Size Everything",
@@ -153,33 +133,28 @@ const campaigns: Campaign[] = [
     campaignName: "Try It Small First",
     tagline: "Commitment-free is the new full-size.",
     insight:
-      "Shoppers across beauty and fashion are gravitating toward mini formats and trial sizes, treating small, low-commitment purchases as a way to test a product or trend before fully buying in.",
+      "Shoppers use minis and trial sizes as a low-risk way to test a product or trend before buying in.",
+    whyThisWorks:
+      "A small first step lowers the barrier to trying you — and leads to full-size buys later.",
     pillars: ["The Trial Table", "Mini, Not Miniature", "Try, Then Buy Big"],
     social: [
-      {
-        channel: "TikTok",
-        idea: "A \"mini haul\" video unboxing a set of trial sizes across beauty and accessories in one order."
-      },
-      {
-        channel: "Reels",
-        idea: "A satisfying side-by-side comparison of mini versus full-size, showing the mini is a real product, not a sample."
-      },
-      {
-        channel: "UGC",
-        idea: "Customers post their favorite mini find that they later bought full-size, tagged \"started small.\""
-      }
+      { channel: "TikTok", idea: "Mini haul across beauty and accessories in one order." },
+      { channel: "Reels", idea: "Mini vs full-size side-by-side — it's a real product." },
+      { channel: "UGC", idea: "Customers share a mini they later bought full-size." }
     ],
     email: {
       subject: "Try five things for the price of one",
-      concept:
-        "A curated mini bundle across categories, framed as low-risk discovery rather than a downsell."
+      concept: "A curated mini bundle framed as low-risk discovery."
     },
     influencer: {
-      archetype: "Discovery and \"first impressions\" creators who already do try-on and unboxing content",
-      ask: "A \"testing five minis before I commit\" video across both beauty and accessories."
+      archetype: "Discovery / first-impressions creators",
+      ask: "\"Testing five minis before I commit\" video."
     },
-    launchMoment:
-      "New quarter or new season kickoff, when shoppers are naturally more open to trying something new."
+    nextSteps: [
+      "Curate a cross-category mini bundle.",
+      "Add a redeem-toward-full-size credit.",
+      "Launch at a new-season kickoff."
+    ]
   },
   {
     trend: "French Hair Accessories",
@@ -187,33 +162,28 @@ const campaigns: Campaign[] = [
     campaignName: "Pin It Up, Polish It Off",
     tagline: "The outfit upgrade that lives in your hair.",
     insight:
-      "Search interest in Parisian-style hair pins and combs is up over 1,000% as polished, editorial hair styling becomes a fast way to elevate an outfit without buying anything new.",
+      "Parisian hair pins and combs are surging — searches up over 1,000% — as an easy way to elevate an outfit.",
+    whyThisWorks:
+      "It's borrowed prestige at a low price — the accessible entry to an \"elevated\" aesthetic.",
     pillars: ["The Five-Second Upgrade", "Old Money Hair", "One Pin, Every Outfit"],
     social: [
-      {
-        channel: "TikTok",
-        idea: "A \"five second hair upgrade\" video showing one pin transforming a plain outfit into a polished look."
-      },
-      {
-        channel: "Reels",
-        idea: "Close-up styling content showing three different ways to wear the same hair pin."
-      },
-      {
-        channel: "UGC",
-        idea: "Customers post their own hair-pin styling moment for a feature, tagged with a branded hashtag."
-      }
+      { channel: "TikTok", idea: "\"Five-second hair upgrade\" — one pin transforms a plain outfit." },
+      { channel: "Reels", idea: "Three ways to wear the same hair pin." },
+      { channel: "UGC", idea: "Customers share their hair-pin moment with a branded tag." }
     ],
     email: {
       subject: "The $15 upgrade every outfit needs",
-      concept:
-        "Position the hair pin as the fastest, cheapest way to elevate any existing outfit, styled three ways in the email itself."
+      concept: "Position the pin as the fastest way to elevate any outfit."
     },
     influencer: {
-      archetype: "Old-money and quiet-luxury aesthetic creators already covered in this style territory",
-      ask: "A \"how I elevate a basic outfit\" video using only hair accessories."
+      archetype: "Quiet-luxury / old-money creators",
+      ask: "\"How I elevate a basic outfit\" using only hair accessories."
     },
-    launchMoment:
-      "Back-to-school and early fall, when polished, put-together looks naturally trend upward."
+    nextSteps: [
+      "Lead with the five-second before/after.",
+      "Price it as the accessible entry point.",
+      "Launch for back-to-school and early fall."
+    ]
   }
 ];
 
@@ -238,12 +208,10 @@ export default function CampaignLabPage() {
             Turn one trend into a full campaign.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-[#2B211C]/75 md:text-lg">
-            Select a trend from the Trend Dashboard and Campaign Lab builds
-            out the full concept: pillars, social content ideas, an email
-            concept, an influencer angle, and the moment to launch it.
+            Pick a trend and get the concept, why it works, and your next steps.
           </p>
           <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#2B211C]">
-            Real 2026 Trend Data · Prototype Concepts
+            Real 2026 Trend Data
           </span>
         </div>
       </section>
@@ -251,38 +219,6 @@ export default function CampaignLabPage() {
       <section className="border-y border-[#2B211C]/10 bg-[#EFE7DA]/65 px-5 py-16 md:px-8 md:py-20">
         <div className="mx-auto max-w-6xl">
           <CampaignLab campaigns={campaigns} />
-        </div>
-      </section>
-
-      <section className="px-5 py-20 md:px-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.2rem] bg-[#3B5D4A] px-6 py-16 text-center text-[#F8F4ED] shadow-[0_28px_80px_rgba(59,93,74,0.2)] md:px-12 md:py-20">
-          <div className="mx-auto mb-7 flex max-w-sm items-center gap-4 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#EFE7DA]/65">
-            <span className="h-px flex-1 bg-[#F8F4ED]/20" />
-            <span>What's Next</span>
-            <span className="h-px flex-1 bg-[#F8F4ED]/20" />
-          </div>
-          <h2 className="font-editorial mx-auto max-w-3xl text-4xl leading-[1.04] md:text-5xl">
-            Every campaign here is designed to flow into real product decisions.
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[#F8F4ED]/75 md:text-lg">
-            Product Opportunity Studio and Customer Insight Board are next up
-            in the prototype, translating these campaigns into merchandising
-            and shopper strategy.
-          </p>
-          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link
-              href="/trend-dashboard"
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F8F4ED] px-7 text-sm font-semibold text-[#2B211C] shadow-[0_16px_36px_rgba(0,0,0,0.18)] transition hover:bg-[#EFE7DA]"
-            >
-              Back to Trend Dashboard
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#F8F4ED]/30 bg-[#F8F4ED]/5 px-7 text-sm font-semibold text-[#F8F4ED] transition hover:border-[#F8F4ED] hover:bg-[#F8F4ED]/10"
-            >
-              Back to Overview
-            </Link>
-          </div>
         </div>
       </section>
 

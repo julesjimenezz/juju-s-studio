@@ -11,7 +11,7 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: "Juju's Studio | AI Strategy for Fashion and Beauty",
   description:
-    "A recruiter-ready prototype for an AI-powered strategy platform for fashion and beauty corporate teams."
+    "An AI-powered strategy platform helping fashion and beauty teams turn real trends into campaigns, products, and customer insight."
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={jost.variable}>
+    <html lang="en" className={jost.variable} data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );
