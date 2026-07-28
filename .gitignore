@@ -29,3 +29,6 @@ yarn-error.log*
 *.tsbuildinfo
 
 .__wtest
+
+# Local scratch — safe to delete in Finder, never committed
+_to_delete/

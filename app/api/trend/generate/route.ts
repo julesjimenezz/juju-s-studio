@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  ANALYTICS_PROPERTY,
+  ANALYTICS_SYSTEM_NOTE
+} from "../../../lib/analyticsSchema";
+import { checkRateLimit, RATE_LIMIT_MESSAGE } from "../../../lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -37,6 +42,14 @@ export async function POST(req: NextRequest) {
   }
   if (!accessCode || accessCode !== expectedCode) {
     return NextResponse.json({ error: "Invalid access code." }, { status: 401 });
+  }
+
+  const limit = checkRateLimit(req);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: RATE_LIMIT_MESSAGE(limit.retryAfterMinutes) },
+      { status: 429 }
+    );
   }
 
   if (!brandContext || brandContext.trim().length < 8) {
@@ -103,14 +116,16 @@ export async function POST(req: NextRequest) {
           type: "string",
           description:
             "One concrete, specific next action this brand could take this season to act on the trend."
-        }
+        },
+        analytics: ANALYTICS_PROPERTY
       },
       required: [
         "matchedTrend",
         "whyThisTrend",
         "personalizedInsight",
         "personalizedOpportunity",
-        "nextStep"
+        "nextStep",
+        "analytics"
       ]
     }
   };
@@ -132,10 +147,11 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-5",
-        max_tokens: 1200,
+        max_tokens: 2000,
         temperature: 1,
         system:
-          "You are the trend strategy engine behind Juju's Studio. You are given a fixed list of real, already-sourced 2026 fashion and beauty trends (do not alter, invent, or add to this list) and a description of a real brand. Pick the single trend from the list that's the best fit for that brand, and explain why in a way that's specific to what the user described, never generic filler. Always call the generate_personalized_trend_read tool.",
+          "You are the trend strategy engine behind Juju's Studio. You are given a fixed list of real, already-sourced 2026 fashion and beauty trends (do not alter, invent, or add to this list) and a description of a real brand. Pick the single trend from the list that's the best fit for that brand, and explain why in a way that's specific to what the user described, never generic filler. Always call the generate_personalized_trend_read tool." +
+          ANALYTICS_SYSTEM_NOTE,
         messages: [
           {
             role: "user",

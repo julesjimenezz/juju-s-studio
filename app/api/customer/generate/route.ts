@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  ANALYTICS_PROPERTY,
+  ANALYTICS_SYSTEM_NOTE
+} from "../../../lib/analyticsSchema";
+import { checkRateLimit, RATE_LIMIT_MESSAGE } from "../../../lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -73,7 +78,8 @@ const CUSTOMER_TOOL = {
         items: { type: "string" },
         description:
           "Three short, easy, concrete next steps a brand can take to reach and win this shopper. Each short and action-oriented (start with a verb)."
-      }
+      },
+      analytics: ANALYTICS_PROPERTY
     },
     required: [
       "trend",
@@ -86,7 +92,8 @@ const CUSTOMER_TOOL = {
       "quote",
       "barriers",
       "howToReachThem",
-      "nextSteps"
+      "nextSteps",
+      "analytics"
     ]
   }
 };
@@ -113,6 +120,14 @@ export async function POST(req: NextRequest) {
   }
   if (!accessCode || accessCode !== expectedCode) {
     return NextResponse.json({ error: "Invalid access code." }, { status: 401 });
+  }
+
+  const limit = checkRateLimit(req);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: RATE_LIMIT_MESSAGE(limit.retryAfterMinutes) },
+      { status: 429 }
+    );
   }
 
   if (!brandContext || brandContext.trim().length < 8) {
@@ -146,10 +161,11 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-5",
-        max_tokens: 2000,
+        max_tokens: 2500,
         temperature: 1,
         system:
-          "You are the customer strategy engine behind Juju's Studio, an AI tool that turns fashion and beauty trends into shopper personas for brand teams. Given a brand, product, or trend description from a real company, produce one sharp, specific customer profile by calling the generate_customer_profile tool. Always use gender-neutral they/them language for the persona, never she/her or he/him. Keep the tone editorial and confident, matching a luxury fashion/beauty brand voice. Be concrete and specific to what the user described, never generic filler.",
+          "You are the customer strategy engine behind Juju's Studio, an AI tool that turns fashion and beauty trends into shopper personas for brand teams. Given a brand, product, or trend description from a real company, produce one sharp, specific customer profile by calling the generate_customer_profile tool. Always use gender-neutral they/them language for the persona, never she/her or he/him. Keep the tone editorial and confident, matching a luxury fashion/beauty brand voice. Be concrete and specific to what the user described, never generic filler." +
+          ANALYTICS_SYSTEM_NOTE,
         messages: [
           {
             role: "user",

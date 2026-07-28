@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  ANALYTICS_PROPERTY,
+  ANALYTICS_SYSTEM_NOTE
+} from "../../../lib/analyticsSchema";
+import { checkRateLimit, RATE_LIMIT_MESSAGE } from "../../../lib/rateLimit";
 
 export const runtime = "nodejs";
 
@@ -82,80 +87,7 @@ const CAMPAIGN_TOOL = {
         description:
           "Three short, easy, concrete next steps the team can take to act on this campaign. Each one short and action-oriented (start with a verb)."
       },
-      analytics: {
-        type: "object",
-        description:
-          "Your quantified strategic assessment of this campaign for this brand. These are your expert ESTIMATES/PROJECTIONS, not measured market data.",
-        properties: {
-          momentum: {
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            description:
-              "How much cultural momentum this trend/angle has right now (0-100)."
-          },
-          opportunityScore: {
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            description:
-              "How strong the strategic opportunity is for THIS specific brand (0-100)."
-          },
-          audienceFit: {
-            type: "string",
-            description:
-              "A one-word or two-word rating of audience fit, e.g. 'Strong', 'Moderate', 'Emerging'."
-          },
-          primaryChannel: {
-            type: "string",
-            description:
-              "The single highest-priority channel for this campaign, e.g. 'TikTok'."
-          },
-          launchWindow: {
-            type: "string",
-            description: "A short launch-timing label, e.g. 'Early Fall'."
-          },
-          channelPriority: {
-            type: "array",
-            minItems: 3,
-            maxItems: 5,
-            description:
-              "Recommended channels ranked by priority, each with a weight 0-100 (they do not need to sum to 100).",
-            items: {
-              type: "object",
-              properties: {
-                channel: { type: "string" },
-                weight: { type: "integer", minimum: 0, maximum: 100 }
-              },
-              required: ["channel", "weight"]
-            }
-          },
-          audienceSegments: {
-            type: "array",
-            minItems: 3,
-            maxItems: 4,
-            description:
-              "The main audience segments for this campaign, each with an approximate share (the shares should sum to roughly 100).",
-            items: {
-              type: "object",
-              properties: {
-                label: { type: "string" },
-                share: { type: "integer", minimum: 0, maximum: 100 }
-              },
-              required: ["label", "share"]
-            }
-          }
-        },
-        required: [
-          "momentum",
-          "opportunityScore",
-          "audienceFit",
-          "primaryChannel",
-          "launchWindow",
-          "channelPriority",
-          "audienceSegments"
-        ]
-      }
+      analytics: ANALYTICS_PROPERTY
     },
     required: [
       "trend",
@@ -198,6 +130,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid access code." }, { status: 401 });
   }
 
+  const limit = checkRateLimit(req);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: RATE_LIMIT_MESSAGE(limit.retryAfterMinutes) },
+      { status: 429 }
+    );
+  }
+
   if (!brandContext || brandContext.trim().length < 8) {
     return NextResponse.json(
       {
@@ -232,7 +172,8 @@ export async function POST(req: NextRequest) {
         max_tokens: 2000,
         temperature: 1,
         system:
-          "You are the strategy engine behind Juju's Studio, an AI tool that turns fashion and beauty trends into campaign concepts for brand teams. Given a brand, product, or trend description from a real company, produce one sharp, specific, on-brand campaign brief by calling the generate_campaign_brief tool. Keep the tone editorial and confident, matching a luxury fashion/beauty brand voice. Be concrete and specific to what the user described, never generic filler. The 'analytics' fields are your own quantified strategic assessment — expert estimates and projections, NOT measured real-world data — so make the scores thoughtful and specific to this brand, varying them realistically rather than defaulting to round or identical numbers.",
+          "You are the strategy engine behind Juju's Studio, an AI tool that turns fashion and beauty trends into campaign concepts for brand teams. Given a brand, product, or trend description from a real company, produce one sharp, specific, on-brand campaign brief by calling the generate_campaign_brief tool. Keep the tone editorial and confident, matching a luxury fashion/beauty brand voice. Be concrete and specific to what the user described, never generic filler." +
+          ANALYTICS_SYSTEM_NOTE,
         messages: [
           {
             role: "user",

@@ -2,6 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useGenerationStages } from "../components/useGenerationStages";
+import {
+  StrategyAnalyticsPanel,
+  type StrategyAnalytics
+} from "../components/StrategyAnalytics";
+import {
+  AccessCodeField,
+  AccessNote,
+  initialAccessCode,
+  rememberAccessCode
+} from "../components/AccessCodeField";
 
 const GENERATION_STAGES = [
   "Reading your brand description…",
@@ -22,6 +32,7 @@ export type ProductOpportunity = {
   crossSell: string;
   retailAngle: string;
   nextSteps: string[];
+  analytics?: StrategyAnalytics;
 };
 
 function BriefBlock({
@@ -146,16 +157,21 @@ function ProductBrief({
           </div>
         </div>
       </div>
+
+      {opportunity.analytics && (
+        <div className="px-6 pb-6 md:px-10 md:pb-10">
+          <StrategyAnalyticsPanel
+            analytics={opportunity.analytics}
+            subject="product edit"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
 function GenerateProductPanel() {
-  const [accessCode, setAccessCode] = useState(() =>
-    typeof window !== "undefined"
-      ? window.localStorage.getItem("jj_access_code") ?? ""
-      : ""
-  );
+  const [accessCode, setAccessCode] = useState(initialAccessCode);
   const [brandContext, setBrandContext] = useState("");
   const [generated, setGenerated] = useState<ProductOpportunity | null>(null);
   const [loading, setLoading] = useState(false);
@@ -184,9 +200,7 @@ function GenerateProductPanel() {
         throw new Error(data.error || "Something went wrong generating your product edit.");
       }
       setGenerated(data.opportunity);
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem("jj_access_code", accessCode);
-      }
+      rememberAccessCode(accessCode);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
@@ -215,8 +229,8 @@ function GenerateProductPanel() {
       </div>
       <p className="mt-3 max-w-2xl text-sm leading-6 text-[#2B211C]/70">
         Describe your brand or product and get a real merchandising edit &mdash;
-        hero products, a bundle, and a retail angle, generated live. Access is
-        limited to approved teams.
+        hero products, a bundle, and a retail angle, generated live.{" "}
+        <AccessNote />
       </p>
 
       <form onSubmit={handleGenerate} className="mt-6 grid gap-4">
@@ -229,14 +243,7 @@ function GenerateProductPanel() {
             rows={3}
             className="rounded-[1rem] border border-[#2B211C]/15 bg-[#F8F4ED] p-4 text-sm leading-6 text-[#2B211C] outline-none focus:border-[#3B5D4A]"
           />
-          <input
-            required
-            type="password"
-            value={accessCode}
-            onChange={(e) => setAccessCode(e.target.value)}
-            placeholder="Access code"
-            className="rounded-[1rem] border border-[#2B211C]/15 bg-[#F8F4ED] p-4 text-sm text-[#2B211C] outline-none focus:border-[#3B5D4A]"
-          />
+          <AccessCodeField value={accessCode} onChange={setAccessCode} />
         </div>
         <div className="flex flex-wrap items-center gap-4">
           <button

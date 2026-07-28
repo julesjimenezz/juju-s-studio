@@ -117,9 +117,14 @@ function BarList({
 }
 
 export function StrategyAnalyticsPanel({
-  analytics
+  analytics,
+  subject = "campaign"
 }: {
   analytics: StrategyAnalytics;
+  // What the numbers describe on this page — "campaign", "product edit",
+  // "shopper", "trend match" — so the same panel reads naturally in all
+  // four modules instead of saying "campaign" everywhere.
+  subject?: string;
 }) {
   return (
     <div className="mt-6 rounded-[2.1rem] border border-[#2B211C]/10 bg-[#EFE7DA]/50 p-6 md:p-8">
@@ -132,8 +137,9 @@ export function StrategyAnalyticsPanel({
         </span>
       </div>
       <p className="mt-2 max-w-2xl text-xs leading-5 text-[#2B211C]/55">
-        How Juju&rsquo;s Studio scores this campaign&rsquo;s momentum,
-        opportunity, and channel mix.
+        How Juju&rsquo;s Studio scores this {subject}&rsquo;s momentum,
+        opportunity, and channel mix. These are the model&rsquo;s strategic
+        estimates, not measured market data.
       </p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
