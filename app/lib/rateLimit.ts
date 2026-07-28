@@ -16,7 +16,14 @@
 // interface; nothing calling this would have to change.
 
 const WINDOW_MS = 60 * 60 * 1000; // one hour
-const MAX_PER_WINDOW = 6;
+//
+// Sized for the real visitor, not the abuser. Someone evaluating Juju's Studio
+// opens all four modules and generates two or three times in each — a ceiling
+// of 6 locked that person out halfway through the tour, which defeats the
+// reason the access code was surfaced in the first place. 18 lets a curious
+// recruiter exhaust their curiosity and still caps a scripted attacker at a
+// trivial hourly spend.
+const MAX_PER_WINDOW = 18;
 
 const hits = new Map<string, number[]>();
 
@@ -69,4 +76,4 @@ export function checkRateLimit(request: Request): RateLimitResult {
 }
 
 export const RATE_LIMIT_MESSAGE = (minutes: number) =>
-  `You've generated a few results already — the demo allows ${MAX_PER_WINDOW} per hour. Try again in about ${minutes} minute${minutes === 1 ? "" : "s"}.`;
+  `You've explored a lot — thank you. This demo runs on a live API, so it allows ${MAX_PER_WINDOW} generations per hour. Try again in about ${minutes} minute${minutes === 1 ? "" : "s"}, or browse the saved examples above in the meantime.`;
