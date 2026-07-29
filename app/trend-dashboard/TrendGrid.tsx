@@ -207,7 +207,7 @@ function GenerateTrendReadPanel({ trends }: { trends: Trend[] }) {
               <button
                 type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#3B5D4A] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#F8F4ED] transition hover:bg-[#324f3f]"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[#3B5D4A] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#F8F4ED] transition hover:bg-[#324f3f]"
               >
                 Download as PDF
               </button>
@@ -314,7 +314,7 @@ export function TrendGrid({ trends }: { trends: Trend[] }) {
             key={f}
             type="button"
             onClick={() => setFilter(f)}
-            className={`rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
+            className={`inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
               filter === f
                 ? "border-[#3B5D4A] bg-[#3B5D4A] text-[#F8F4ED]"
                 : "border-[#2B211C]/20 bg-[#F8F4ED]/60 text-[#2B211C]/70 hover:border-[#2B211C]/45"

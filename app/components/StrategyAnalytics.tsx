@@ -72,7 +72,10 @@ function StatTile({ label, value }: { label: string; value: string }) {
       <p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#9C8F84]">
         {label}
       </p>
-      <p className="mt-1.5 font-editorial text-xl leading-tight text-[#2B211C]">
+      {/* text-balance keeps a long value like "Late Spring, ahead of summer
+          skin-focus season" from stacking into a six-line ribbon next to two
+          two-word neighbours. */}
+      <p className="mt-1.5 font-editorial text-lg leading-snug text-balance text-[#2B211C]">
         {value}
       </p>
     </div>
