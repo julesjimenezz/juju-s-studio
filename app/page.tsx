@@ -354,6 +354,12 @@ export default function Home() {
                 Founder, Juju's Studio
               </p>
             </div>
+            <a
+              href="/case-study"
+              className="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#3B5D4A] underline decoration-[#3B5D4A]/30 underline-offset-4 transition hover:decoration-[#3B5D4A]"
+            >
+              Read the full case study &rarr;
+            </a>
           </div>
         </div>
       </section>
@@ -377,7 +383,7 @@ export default function Home() {
               href="#prototype"
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#F8F4ED] px-7 text-sm font-semibold text-[#2B211C] shadow-[0_16px_36px_rgba(0,0,0,0.18)] transition hover:bg-[#EFE7DA]"
             >
-              Get Started
+              Explore the Modules
             </a>
             <a
               href="#workflow"

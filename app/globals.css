@@ -58,3 +58,12 @@ body {
     width: 100%;
   }
 }
+
+/* Accessibility: a visible, on-brand focus ring for keyboard users.
+   Mouse clicks don't trigger :focus-visible, so this only appears when
+   tabbing -- which is exactly when it's needed. */
+:focus-visible {
+  outline: 2px solid var(--forest, #3b5d4a);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

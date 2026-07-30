@@ -12,7 +12,8 @@ const exploreLinks = [
   { href: "/#platform", label: "Platform" },
   { href: "/#workflow", label: "How It Works" },
   { href: "/#teams", label: "For Teams" },
-  { href: "/#about", label: "About" }
+  { href: "/#about", label: "About" },
+  { href: "/case-study", label: "How I Built This" }
 ];
 
 export function Footer() {
