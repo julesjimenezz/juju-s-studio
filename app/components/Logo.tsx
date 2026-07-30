@@ -5,7 +5,7 @@ export function Logo({ className = "" }: { className?: string }) {
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px]"
         style={{ background: "var(--forest)" }}
       >
-        <svg viewBox="0 0 100 100" className="h-[22px] w-[22px]" fill="var(--sage)">
+        <svg viewBox="0 0 100 100" className="h-[28px] w-[28px]" fill="var(--sage)">
           {/* A lowercase italic j from Latin Modern Roman -- the modern
               descendant of the high-contrast Didone letterforms used by
               fashion magazines. This is the actual glyph outline extracted
