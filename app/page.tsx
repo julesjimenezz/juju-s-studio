@@ -42,6 +42,11 @@ const teamCards = [
 
 const moduleCards = [
   {
+    title: "The Guided Studio",
+    text: "Start with your brand, see the real upcoming trends rising in your realm, pick your favorites, and get one connected strategy.",
+    href: "/studio"
+  },
+  {
     title: "Trend Dashboard",
     text: "See emerging trends, with the insight and opportunity behind each.",
     href: "/trend-dashboard",
@@ -115,7 +120,7 @@ export default function Home() {
             future of fashion, beauty, and AI.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button>Explore the Studio</Button>
+            <Button href="/studio">Start With Your Brand</Button>
             <Button variant="secondary" href="/#workflow">
               See How It Works
             </Button>
@@ -313,7 +318,9 @@ export default function Home() {
                 badge={
                   card.title === "Retail Selling Assistant"
                     ? "Coming Soon"
-                    : undefined
+                    : card.title === "The Guided Studio"
+                      ? "New"
+                      : undefined
                 }
                 {...card}
               />

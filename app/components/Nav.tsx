@@ -34,10 +34,10 @@ export function Nav() {
         </div>
         <div className="flex items-center gap-3">
           <Link
-            href="/#prototype"
-            className="rounded-full border border-[#2B211C]/20 bg-[#F8F4ED]/70 px-5 py-2.5 text-sm font-semibold shadow-[0_10px_24px_rgba(43,33,28,0.06)] transition hover:border-[#2B211C] hover:bg-[#EFE7DA]/55"
+            href="/studio"
+            className="rounded-full bg-[#3B5D4A] px-5 py-2.5 text-sm font-semibold text-[#F8F4ED] shadow-[0_10px_24px_rgba(59,93,74,0.18)] transition hover:bg-[#324f3f]"
           >
-            Get Started
+            Start With Your Brand
           </Link>
           <label
             htmlFor="nav-toggle"
@@ -65,6 +65,9 @@ export function Nav() {
           </Link>
           <Link href="/#about" className="rounded-lg px-2 py-3 hover:bg-[#EFE7DA]/60 hover:text-[#2B211C]">
             About
+          </Link>
+          <Link href="/studio" className="rounded-lg px-2 py-3 text-[#3B5D4A] hover:bg-[#EFE7DA]/60">
+            The Guided Studio
           </Link>
         </div>
       </div>
