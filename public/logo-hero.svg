@@ -1,16 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- juju's studio hero mark: the flourish j.
-       High-contrast fashion-serif lowercase j with a single continuous
-       hairline that starts tangent at the tail tip, closes the lower
-       loop, crosses behind the stem, curls into the upper loop, and
-       lands tangent on the teardrop's apex. For use at large sizes
-       (covers, social cards, case-study headers). The nav chip and
-       favicon use a heavier flourish-free sibling -- see
-       app/components/Logo.tsx and app/icon.svg. For reversed use on
-       forest, swap #3B5D4A for #DDE3D3. -->
-  <g transform="translate(3.4 1.6)">
-    <path d="M 31.5 79.2 C 25.55 78.42 19.5 74.5 18 66.5 C 16.4 58 20 49.5 27.5 45.4 C 34 41.9 43 40.4 51.5 40 C 60.5 39.6 67.5 37.3 71.3 32.2 C 74.6 27.7 74 21.6 69.6 18.2 C 65.9 15.4 59.8 14.9 53.9 16.32" fill="none" stroke="#3B5D4A" stroke-width="1.4" stroke-linecap="round"/>
-    <path d="M 57.3 26 L 57.35 28.33 L 57.5 30.67 L 58.39 39.07 L 58.64 42.57 L 58.79 54.01 L 58.74 56.72 L 58.49 58.67 L 57.92 60.83 L 55.2 67.81 L 54.76 68.78 L 54.14 69.91 L 53.27 71.17 L 52.31 72.3 L 51.11 73.49 L 49.86 74.56 L 48.2 75.78 L 46.31 77.02 L 44.91 77.76 L 43.63 78.28 L 42.29 78.68 L 40.53 79.03 L 38.66 79.29 L 36.7 79.48 L 34.77 79.55 L 33.04 79.52 L 31.48 79.37 L 31.52 79.03 L 32.74 79.12 L 34 79.08 L 35.31 78.91 L 36.75 78.6 L 38.59 78.06 L 40.78 77.28 L 42.29 76.67 L 43.77 75.94 L 45.81 74.7 L 46.57 74.08 L 47.25 73.38 L 47.86 72.61 L 48.49 71.61 L 49.51 69.45 L 51.01 65.27 L 51.22 64.38 L 51.36 63.21 L 51.38 61.72 L 51.12 57.19 L 51.34 43.03 L 51.59 39.3 L 52.5 30.67 L 52.65 28.33 L 52.7 26 Z" fill="#3B5D4A"/>
-    <path d="M 51.2 25.5 Q 53.54 23.39 55.59 22 A 3.2 3.2 0 1 0 50.43 19.94 Q 50.96 22.36 51.2 25.5 Z" fill="#3B5D4A"/>
-  </g>
+  <!-- juju's studio mark: lowercase italic j, Latin Modern Roman italic,
+       extracted as an outline. Transparent background; ink is forest.
+       For reversed use on forest, change fill to #DDE3D3. -->
+  <path d="M55.15 73.43 62.95 42.08C63.03 41.83 63.37 40.49 63.37 39.31C63.37 35.37 60.85 31.77 56.16 31.77C47.86 31.77 43.42 44.09 43.42 44.68C43.42 45.52 44.26 45.52 44.68 45.52C45.77 45.52 45.77 45.43 46.27 44.09C48.37 38.81 51.72 33.61 56.08 33.61C58.17 33.61 58.34 35.46 58.34 36.97C58.34 38.31 58.09 39.90 57.75 41.24L49.71 73.51C49.62 74.01 47.02 84.16 40.91 84.16C40.49 84.16 39.06 84.16 37.55 83.32C40.49 82.40 40.57 79.38 40.57 79.38C40.57 78.29 39.82 76.70 37.64 76.70C35.96 76.70 33.53 78.12 33.53 81.05C33.53 84.83 37.80 86.00 40.82 86.00C47.78 86.00 53.56 79.71 55.15 73.43ZM66.47 17.60C66.47 15.84 65.21 14.00 62.70 14.00C60.02 14.00 57.33 16.60 57.33 19.28C57.33 21.12 58.68 22.88 61.11 22.88C63.79 22.88 66.47 20.29 66.47 17.60Z" fill="#3B5D4A"/>
 </svg>
