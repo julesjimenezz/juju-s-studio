@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- juju's studio hero mark: the flourish j.
+       High-contrast fashion-serif lowercase j with a single continuous
+       hairline that starts tangent at the tail tip, closes the lower
+       loop, crosses behind the stem, curls into the upper loop, and
+       lands tangent on the teardrop's apex. For use at large sizes
+       (covers, social cards, case-study headers). The nav chip and
+       favicon use a heavier flourish-free sibling -- see
+       app/components/Logo.tsx and app/icon.svg. For reversed use on
+       forest, swap #3B5D4A for #DDE3D3. -->
+  <g transform="translate(3.4 1.6)">
+    <path d="M 31.5 79.2 C 25.55 78.42 19.5 74.5 18 66.5 C 16.4 58 20 49.5 27.5 45.4 C 34 41.9 43 40.4 51.5 40 C 60.5 39.6 67.5 37.3 71.3 32.2 C 74.6 27.7 74 21.6 69.6 18.2 C 65.9 15.4 59.8 14.9 53.9 16.32" fill="none" stroke="#3B5D4A" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M 57.3 26 L 57.35 28.33 L 57.5 30.67 L 58.39 39.07 L 58.64 42.57 L 58.79 54.01 L 58.74 56.72 L 58.49 58.67 L 57.92 60.83 L 55.2 67.81 L 54.76 68.78 L 54.14 69.91 L 53.27 71.17 L 52.31 72.3 L 51.11 73.49 L 49.86 74.56 L 48.2 75.78 L 46.31 77.02 L 44.91 77.76 L 43.63 78.28 L 42.29 78.68 L 40.53 79.03 L 38.66 79.29 L 36.7 79.48 L 34.77 79.55 L 33.04 79.52 L 31.48 79.37 L 31.52 79.03 L 32.74 79.12 L 34 79.08 L 35.31 78.91 L 36.75 78.6 L 38.59 78.06 L 40.78 77.28 L 42.29 76.67 L 43.77 75.94 L 45.81 74.7 L 46.57 74.08 L 47.25 73.38 L 47.86 72.61 L 48.49 71.61 L 49.51 69.45 L 51.01 65.27 L 51.22 64.38 L 51.36 63.21 L 51.38 61.72 L 51.12 57.19 L 51.34 43.03 L 51.59 39.3 L 52.5 30.67 L 52.65 28.33 L 52.7 26 Z" fill="#3B5D4A"/>
+    <path d="M 51.2 25.5 Q 53.54 23.39 55.59 22 A 3.2 3.2 0 1 0 50.43 19.94 Q 50.96 22.36 51.2 25.5 Z" fill="#3B5D4A"/>
+  </g>
+</svg>
