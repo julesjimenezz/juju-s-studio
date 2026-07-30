@@ -14,7 +14,7 @@ export function Logo({ className = "" }: { className?: string }) {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          {/* Two J's, spine to spine, an exact mirror about x=50
+          {/* Two fishhook J's, spine to spine, an exact mirror about x=50
               (right path is the left with x -> 100-x).
 
               Four things here are load-bearing. Please don't "tidy" them:
@@ -24,21 +24,23 @@ export function Logo({ className = "" }: { className?: string }) {
                  its hook at the top -- a vertical with a top hook reads as
                  an "r", which is why people were seeing the mark as "J R".
 
-              2. Each J is ONE cubic, not two spliced together. The earlier
-                 two-segment version was tangent-continuous but not
-                 curvature-continuous, so the curve visibly kinked where the
-                 segments met and went flat in the middle of the bowl.
+              2. The tail climbs 17 units back up from the bowl bottom
+                 (y=80.5 -> y=63.5), tilting slightly back toward the stem.
+                 A tail that runs flat into the corner reads as an arch or a
+                 table leg, not a J -- the deep upward hook is what makes it
+                 unmistakably a letter.
 
-              3. The tail LIFTS at the terminal (ends at y=76.5, above the
-                 curve's lowest point). A tail that runs dead flat into the
-                 corner reads as an arch or a table leg, not as a J.
+              3. The two cubics meet at the bowl bottom with matched
+                 horizontal tangents. The tail is a tightening spiral (a
+                 circular hook this deep would throw the terminal outside
+                 the chip).
 
               4. Stems sit at 42.5 / 57.5, so the gap between them is 7.5 --
                  exactly one stroke width. Narrower and the two stems fuse
                  into a single dark bar in the 22px nav chip; much wider and
                  the right-hand J starts reading as an "L". */}
-          <path d="M 42.5 17 L 42.5 59 C 42.5 73 28.36 80.47 22 76.5" />
-          <path d="M 57.5 17 L 57.5 59 C 57.5 73 71.64 80.47 78 76.5" />
+          <path d="M 42.5 16 L 42.5 63 C 42.5 72.66 37.35 80.5 31 80.5 C 25.4 80.5 25.69 72.79 27 63.5" />
+          <path d="M 57.5 16 L 57.5 63 C 57.5 72.66 62.65 80.5 69 80.5 C 74.6 80.5 74.31 72.79 73 63.5" />
         </svg>
       </span>
       <span
