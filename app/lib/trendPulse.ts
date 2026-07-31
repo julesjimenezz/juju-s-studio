@@ -1,4 +1,4 @@
-// Shared server-side data for the Trend Pulse dashboard.
+// Shared server-side data for the live Trend Pulse strip.
 //
 // Fetches real, free, public signals for each tracked trend:
 //   • Wikipedia pageviews  → search interest
@@ -6,12 +6,12 @@
 //
 // Both fetches use Next.js caching (`revalidate`), so the data is fetched
 // at most every few hours and otherwise served instantly from cache. The
-// Trend Dashboard page calls this on the server and bakes the result into
-// the HTML — so the dashboard shows up immediately, always warm, and
-// refreshes itself in the background. No database, no keys, no setup.
+// home page calls this on the server and bakes the result into the HTML
+// — so the strip shows up warm, and refreshes itself in the background.
+// No database, no keys, no setup.
 
 const WIKI_USER_AGENT =
-  "JujusStudio/1.0 (https://juju-s-studio.vercel.app; contact: julesjimenez04@gmail.com) trend-dashboard";
+  "JujusStudio/1.0 (https://juju-s-studio.vercel.app; contact: julesjimenez04@gmail.com) trend-index";
 
 const DAYS = 90;
 const REVALIDATE = 21600; // 6 hours

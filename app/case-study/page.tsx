@@ -16,7 +16,7 @@ const scopingDecisions = [
   },
   {
     title: "Real trends over invented ones",
-    body: "The early version ran on made-up trends with names I liked. It looked fine. But a fashion director reading “Vacation Glow” would have known instantly that it was decoration, and everything downstream of it would have been discounted. So I replaced all six with real, sourced, current signals — and went further in the code. In the Trend Dashboard, the AI is structurally prevented from inventing a trend: the schema constrains its answer to the six real ones. It can pick and it can explain, but it cannot make something up."
+    body: "The early version ran on made-up trends with names I liked. It looked fine. But a fashion director reading “Vacation Glow” would have known instantly that it was decoration, and everything downstream of it would have been discounted. So I replaced all six with real, sourced, current signals — and went further in the code. In the Studio, the AI is structurally prevented from inventing a trend: the schema constrains its answer to the sourced pool. It can pick and it can explain, but it cannot make something up."
   },
   {
     title: "One shared visual language over four",
@@ -109,11 +109,12 @@ export default function CaseStudy() {
               four modules, each a different lens on the same starting signal.
             </p>
             <p>
-              The <Link href="/trend-dashboard" className="font-semibold text-[#3B5D4A] underline decoration-[#3B5D4A]/30 underline-offset-4 hover:decoration-[#3B5D4A]">Trend Dashboard</Link>{" "}
-              reads six real, currently-moving 2026 trends, each cited to a real
-              source &mdash; Net-a-Porter&rsquo;s Fall 2026 report, Pinterest
-              Predicts, Who What Wear, BeautyMatter. Describe your brand and it
-              tells you which of those signals actually fits you.{" "}
+              The <Link href="/studio" className="font-semibold text-[#3B5D4A] underline decoration-[#3B5D4A]/30 underline-offset-4 hover:decoration-[#3B5D4A]">Guided Studio</Link>{" "}
+              sits on a pool of real upcoming 2026 forecasts, each cited to a
+              named source &mdash; Pinterest Predicts, WGSN, McKinsey, Who What
+              Wear, BeautyMatter. Describe your brand, see the signals actually
+              rising in your realm, pick the ones you believe in, and it returns
+              one connected strategy.{" "}
               <Link href="/campaign-lab" className="font-semibold text-[#3B5D4A] underline decoration-[#3B5D4A]/30 underline-offset-4 hover:decoration-[#3B5D4A]">Campaign Lab</Link>{" "}
               turns a trend into a full campaign brief.{" "}
               <Link href="/product-opportunity-studio" className="font-semibold text-[#3B5D4A] underline decoration-[#3B5D4A]/30 underline-offset-4 hover:decoration-[#3B5D4A]">Product Opportunity Studio</Link>{" "}

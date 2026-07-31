@@ -6,7 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     "",
     "/studio",
-    "/trend-dashboard",
     "/campaign-lab",
     "/product-opportunity-studio",
     "/customer-insight-board",

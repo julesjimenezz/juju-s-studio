@@ -1,6 +1,12 @@
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
+import { TrendIndex } from "./components/TrendIndex";
 import { Button, SectionHeading, InfoCard } from "./components/ui";
+
+// The Trend Index folds in the live Trend Pulse, whose upstream data is
+// cached for six hours. Matching that here keeps the home page static and
+// warm in between refreshes.
+export const revalidate = 21600;
 
 const platformCards = [
   {
@@ -45,12 +51,6 @@ const moduleCards = [
     title: "The Guided Studio",
     text: "Start with your brand, see the real upcoming trends rising in your realm, pick your favorites, and get one connected strategy.",
     href: "/studio"
-  },
-  {
-    title: "Trend Dashboard",
-    text: "See emerging trends, with the insight and opportunity behind each.",
-    href: "/trend-dashboard",
-    image: "/module-images/trend-dashboard.jpg"
   },
   {
     title: "Campaign Lab",
@@ -244,6 +244,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <TrendIndex />
 
       <section className="border-y border-[#2B211C]/10 bg-[#EFE7DA]/65 px-5 py-20 md:px-8">
         <SectionHeading
