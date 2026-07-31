@@ -95,13 +95,43 @@ function salvageMatches(input: unknown): SalvagedMatch[] {
 
 // If realm is the field that went missing, the heading reads "Trending in
 // your" followed by nothing. A trimmed echo of the brand is a better
-// fallback than an empty line.
+// fallback than an empty line -- but only if it reads like a realm and not
+// like a sentence chopped mid-clause. "We're an independent womenswear
+// boutique in Nashville selling..." should come back as "independent
+// womenswear boutique", not trail off after "selling".
+const REALM_LEAD_IN =
+  /^(?:we\s*[''\u2019]?re|we are|i\s*[''\u2019]?m|i am|it\s*[''\u2019]?s|it is|this is|our brand is|the brand is|we run|we own)\s+(?:\b(?:an|a|the)\b\s*)?/i;
+
+// A trailing modifier starts here; everything before it is the realm.
+const REALM_TAIL_START =
+  /\s+(?:in|for|with|that|who|selling|serving|targeting|based|located|specialising|specializing)\s+/i;
+
+const REALM_DANGLERS = new Set([
+  "a", "an", "the", "and", "or", "but", "for", "with", "to", "in", "on", "at",
+  "of", "by", "from", "that", "which", "who", "our", "their", "its", "is",
+  "are", "we", "selling", "serving", "targeting", "offering", "making", "based"
+]);
+
 function fallbackRealm(brand: string): string {
-  return brand
-    .trim()
-    .replace(/\s+/g, " ")
-    .split(" ")
-    .slice(0, 8)
+  // One clause is enough; the rest of her description is supporting detail.
+  let s = brand.trim().replace(/\s+/g, " ").replace(REALM_LEAD_IN, "");
+  s = s.split(/[,;:.!?]/)[0];
+
+  // Drop the trailing modifier, but only when a real noun phrase survives.
+  const cut = s.search(REALM_TAIL_START);
+  if (cut > 0 && s.slice(0, cut).trim().split(" ").filter(Boolean).length >= 2) {
+    s = s.slice(0, cut);
+  }
+
+  const words = s.split(" ").filter(Boolean).slice(0, 7);
+  while (
+    words.length > 2 &&
+    REALM_DANGLERS.has(words[words.length - 1].toLowerCase())
+  ) {
+    words.pop();
+  }
+
+  return words
     .join(" ")
     .replace(/^(a|an|the)\s+/i, "")
     .replace(/[\s,;:.\-]+$/, "");
