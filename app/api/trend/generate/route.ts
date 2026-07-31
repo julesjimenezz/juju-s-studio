@@ -7,6 +7,11 @@ import { checkRateLimit, RATE_LIMIT_MESSAGE } from "../../../lib/rateLimit";
 
 export const runtime = "nodejs";
 
+// Vercel kills a function at 10s by default. These generations run
+// well past that, so the ceiling has to be raised explicitly or the
+// request dies mid-flight and the user sees nothing at all.
+export const maxDuration = 60;
+
 type TrendInput = {
   name: string;
   category: string;
@@ -148,7 +153,6 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: "claude-sonnet-5",
         max_tokens: 2000,
-        temperature: 1,
         system:
           "You are the trend strategy engine behind Juju's Studio. You are given a fixed list of real, already-sourced 2026 fashion and beauty trends (do not alter, invent, or add to this list) and a description of a real brand. Pick the single trend from the list that's the best fit for that brand, and explain why in a way that's specific to what the user described, never generic filler. Always call the generate_personalized_trend_read tool." +
           ANALYTICS_SYSTEM_NOTE,

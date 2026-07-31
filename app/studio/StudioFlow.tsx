@@ -49,6 +49,104 @@ type Report = {
   analytics?: StrategyAnalytics;
 };
 
+const textOf = (v: unknown): string => (typeof v === "string" ? v.trim() : "");
+const textListOf = (v: unknown): string[] =>
+  Array.isArray(v) ? v.map(textOf).filter(Boolean) : [];
+
+// Two things can go wrong between the API and the screen: the response
+// isn't JSON at all (a gateway timeout returns HTML), or it's JSON but a
+// field is missing. Both used to surface as a raw crash. readJson handles
+// the first; normalizeReport handles the second by rebuilding the report
+// into a shape ReportView can always render, and returning null -- which
+// becomes a plain retry message -- if anything essential is absent.
+async function readJson(res: Response): Promise<Record<string, unknown>> {
+  try {
+    return (await res.json()) as Record<string, unknown>;
+  } catch {
+    return {};
+  }
+}
+
+function normalizeReport(raw: unknown): Report | null {
+  if (!raw || typeof raw !== "object") return null;
+  const r = raw as Record<string, unknown>;
+  const obj = (v: unknown): Record<string, unknown> =>
+    v && typeof v === "object" ? (v as Record<string, unknown>) : {};
+
+  const campaign = obj(r.campaign);
+  const customer = obj(r.customer);
+
+  const trendPlays = (Array.isArray(r.trendPlays) ? r.trendPlays : [])
+    .map((tp) => ({ trendName: textOf(obj(tp).trendName), play: textOf(obj(tp).play) }))
+    .filter((tp) => tp.trendName && tp.play);
+
+  const social = (Array.isArray(r.social) ? r.social : [])
+    .map((s) => ({ channel: textOf(obj(s).channel), idea: textOf(obj(s).idea) }))
+    .filter((s) => s.channel && s.idea);
+
+  const report: Report = {
+    title: textOf(r.title),
+    positioning: textOf(r.positioning),
+    trendPlays,
+    campaign: {
+      name: textOf(campaign.name),
+      tagline: textOf(campaign.tagline),
+      pillars: textListOf(campaign.pillars)
+    },
+    productPlays: textListOf(r.productPlays),
+    customer: {
+      who: textOf(customer.who),
+      want: textOf(customer.want),
+      barrier: textOf(customer.barrier),
+      where: textOf(customer.where)
+    },
+    social,
+    whyThisWorks: textOf(r.whyThisWorks),
+    nextSteps: textListOf(r.nextSteps),
+    analytics:
+      r.analytics && typeof r.analytics === "object"
+        ? (r.analytics as StrategyAnalytics)
+        : undefined
+  };
+
+  const complete =
+    report.title &&
+    report.positioning &&
+    report.whyThisWorks &&
+    report.trendPlays.length > 0 &&
+    report.campaign.name &&
+    report.campaign.pillars.length > 0 &&
+    report.productPlays.length > 0 &&
+    report.customer.who &&
+    report.social.length > 0 &&
+    report.nextSteps.length > 0;
+
+  return complete ? report : null;
+}
+
+// A request that hangs should fail with a message rather than spinning
+// forever. Report generation makes two model calls and normally lands
+// around 25s, so the ceiling here is generous but finite.
+async function postJson(
+  url: string,
+  payload: unknown,
+  timeoutMs: number
+): Promise<{ res: Response; data: Record<string, unknown> }> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    return { res, data: await readJson(res) };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function StepMarker({ n, label, active }: { n: string; label: string; active: boolean }) {
   return (
     <div className={`flex items-center gap-3 ${active ? "" : "opacity-40"}`}>
@@ -281,6 +379,36 @@ function ReportView({ report }: { report: Report }) {
   );
 }
 
+// The stylesheet sets html { scroll-behavior: smooth }, which means
+// scrollIntoView animates even with behavior: "auto". That animation loses
+// the race whenever the page collapses underneath it -- which is exactly
+// what happens when the trends grid unmounts on the final step -- and the
+// user gets dumped in the footer wondering where their strategy went.
+// "instant" explicitly overrides the CSS.
+// The nav is sticky and 73px tall, so anything landed closer than that
+// to the top sits underneath it -- which on the report meant the
+// "Download as PDF" and "Start Over" buttons were hidden behind the
+// header the moment the strategy arrived.
+function jumpTo(el: HTMLElement | null, offset = 90) {
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+}
+
+// Landing a scroll right after a large DOM collapse is a race: the first
+// frame still measures the pre-collapse layout, so the jump overshoots.
+// Wait two frames, then correct once more after the reflow has settled.
+function jumpToWhenSettled(get: () => HTMLElement | null, offset = 90) {
+  const frame = requestAnimationFrame(() =>
+    requestAnimationFrame(() => jumpTo(get(), offset))
+  );
+  const timer = setTimeout(() => jumpTo(get(), offset), 350);
+  return () => {
+    cancelAnimationFrame(frame);
+    clearTimeout(timer);
+  };
+}
+
 export function StudioFlow() {
   const [accessCode, setAccessCode] = useState(initialAccessCode);
   const [brand, setBrand] = useState("");
@@ -302,6 +430,7 @@ export function StudioFlow() {
   const trendsRef = useRef<HTMLDivElement>(null);
   const finalRef = useRef<HTMLDivElement>(null);
   const reportRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
 
   const matchStage = useGenerationStages(MATCH_STAGES, matching);
   const moreStage = useGenerationStages(MORE_STAGES, loadingMore);
@@ -320,10 +449,15 @@ export function StudioFlow() {
     }
   }, [showFinalStep]);
 
+  // When the report arrives the whole trends grid unmounts, so the page
+  // gets dramatically shorter in the same commit. A smooth scroll started
+  // here races that collapse and lands the user in the footer -- looking
+  // for all the world like nothing happened. Scroll on the next frame,
+  // after layout has settled, and correct once more shortly after in case
+  // fonts or images shift things again.
   useEffect(() => {
-    if (report && reportRef.current) {
-      reportRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (!report) return;
+    return jumpToWhenSettled(() => reportRef.current);
   }, [report]);
 
   async function callMatch(refine: boolean) {
@@ -331,30 +465,47 @@ export function StudioFlow() {
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/studio/match", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
+      const { res, data } = await postJson(
+        "/api/studio/match",
+        {
           accessCode,
           brand,
           location: location || undefined,
           audience: audience || undefined,
           notes: notes || undefined,
           excludeIds: refine ? matches.map((m) => m.trendId) : []
-        })
-      });
-      const data = await res.json();
+        },
+        60000
+      );
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong finding your trends.");
+        throw new Error(
+          textOf(data.error) || "Something went wrong finding your trends."
+        );
       }
-      const result = data.result as { realm: string; matches: Match[] };
-      const valid = result.matches.filter((m) => trendById(m.trendId));
-      setRealm(result.realm);
+      const result = (data.result ?? {}) as { realm?: string; matches?: Match[] };
+      const valid = (Array.isArray(result.matches) ? result.matches : []).filter(
+        (m) => m && trendById(m.trendId)
+      );
+      if (valid.length === 0) {
+        throw new Error(
+          refine
+            ? "No new trends came back that time. Try adding a little more context."
+            : "We couldn't match any trends to that description. Try adding a bit more detail about the brand."
+        );
+      }
+      setRealm(textOf(result.realm) || realm);
       setMatches((prev) => (refine ? [...prev, ...valid] : valid));
       if (!refine) setSelectedIds([]);
       rememberAccessCode(accessCode);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      const aborted = err instanceof DOMException && err.name === "AbortError";
+      setError(
+        aborted
+          ? "That took longer than expected. Give it one more try."
+          : err instanceof Error
+            ? err.message
+            : "Something went wrong."
+      );
     } finally {
       setBusy(false);
     }
@@ -364,10 +515,9 @@ export function StudioFlow() {
     setReporting(true);
     setError(null);
     try {
-      const res = await fetch("/api/studio/report", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
+      const { res, data } = await postJson(
+        "/api/studio/report",
+        {
           accessCode,
           brand,
           location: location || undefined,
@@ -375,15 +525,30 @@ export function StudioFlow() {
           notes: notes || undefined,
           finalNote: finalNote || undefined,
           chosenIds: selectedIds
-        })
-      });
-      const data = await res.json();
+        },
+        90000
+      );
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong building your strategy.");
+        throw new Error(
+          textOf(data.error) || "Something went wrong building your strategy."
+        );
       }
-      setReport(data.report);
+      const normalized = normalizeReport(data.report);
+      if (!normalized) {
+        throw new Error(
+          "Your strategy came back incomplete. Give it one more try - if it keeps happening, try picking a few fewer trends."
+        );
+      }
+      setReport(normalized);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      const aborted = err instanceof DOMException && err.name === "AbortError";
+      setError(
+        aborted
+          ? "That took longer than expected. Give it one more try."
+          : err instanceof Error
+            ? err.message
+            : "Something went wrong."
+      );
     } finally {
       setReporting(false);
     }
@@ -406,6 +571,9 @@ export function StudioFlow() {
     setShowFinalStep(false);
     setReport(null);
     setError(null);
+    // Clearing the report collapses the page to almost nothing. Without
+    // this the user is left stranded in the footer wondering what happened.
+    jumpToWhenSettled(() => topRef.current);
   }
 
   function handlePrint() {
@@ -415,7 +583,7 @@ export function StudioFlow() {
   const hasTrends = matches.length > 0;
 
   return (
-    <div>
+    <div ref={topRef} className="scroll-mt-24">
       {/* Step markers */}
       <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
         <StepMarker n="01" label="Your Brand" active />
@@ -596,10 +764,12 @@ export function StudioFlow() {
             >
               {reporting ? "Building…" : "Generate My Full Strategy"}
             </button>
-            {error && reporting === false && (
-              <p className="text-sm font-medium text-[#9c3b3b]">{error}</p>
-            )}
           </div>
+          {!reporting && error && (
+            <p className="mt-4 rounded-[0.9rem] border border-[#9c3b3b]/25 bg-[#9c3b3b]/[0.06] px-4 py-3 text-sm font-medium leading-6 text-[#9c3b3b]">
+              {error}
+            </p>
+          )}
           {reporting && <div className="mt-4"><LoadingLine message={reportStage} /></div>}
         </div>
       )}

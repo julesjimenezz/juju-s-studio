@@ -4,6 +4,11 @@ import { poolForPrompt, TREND_POOL_IDS } from "../../../lib/trendPool";
 
 export const runtime = "nodejs";
 
+// Vercel kills a function at 10s by default. These generations run
+// well past that, so the ceiling has to be raised explicitly or the
+// request dies mid-flight and the user sees nothing at all.
+export const maxDuration = 60;
+
 // The matching layer of the guided Studio flow. The AI reads the brand
 // description (plus any refinement context) and picks the most relevant
 // trends FROM THE POOL — the enum below structurally prevents it from
@@ -53,6 +58,54 @@ const MATCH_TOOL = {
     required: ["realm", "matches"]
   }
 };
+
+const MATCH_SYSTEM =
+  "You are the trend-matching engine behind Juju's Studio. You are given a pool of real, published upcoming fashion/beauty/culture trend forecasts (each compiled from a named source) and a description of a real brand. Select the trends from the pool most relevant to that brand's realm, audience, and market, and explain each fit concretely. Only use trends from the pool — the schema enforces this. Rank by fit, best first. If refinement context (location, audience, notes) is provided, weight it heavily.";
+
+type SalvagedMatch = { trendId: string; whyItFits: string; fitScore: number };
+
+// The model occasionally derails part-way through emitting the matches
+// array -- the field arrives as a string of raw markup instead of a list,
+// or realm goes missing entirely. It is intermittent, and it used to reach
+// the user as "we couldn't match any trends to that description", which
+// blames her brand description for what is really a model hiccup. Keep
+// whatever is usable; the caller retries when nothing is.
+function salvageMatches(input: unknown): SalvagedMatch[] {
+  const raw = (input as { matches?: unknown } | null)?.matches;
+  if (!Array.isArray(raw)) return [];
+  const seen = new Set<string>();
+  const out: SalvagedMatch[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as { trendId?: unknown; whyItFits?: unknown; fitScore?: unknown };
+    const trendId = typeof row.trendId === "string" ? row.trendId : "";
+    if (!trendId || !TREND_POOL_IDS.includes(trendId) || seen.has(trendId)) continue;
+    seen.add(trendId);
+    const score = Number(row.fitScore);
+    out.push({
+      trendId,
+      whyItFits: typeof row.whyItFits === "string" ? row.whyItFits.trim() : "",
+      fitScore: Number.isFinite(score)
+        ? Math.min(100, Math.max(0, Math.round(score)))
+        : 70
+    });
+  }
+  return out;
+}
+
+// If realm is the field that went missing, the heading reads "Trending in
+// your" followed by nothing. A trimmed echo of the brand is a better
+// fallback than an empty line.
+function fallbackRealm(brand: string): string {
+  return brand
+    .trim()
+    .replace(/\s+/g, " ")
+    .split(" ")
+    .slice(0, 8)
+    .join(" ")
+    .replace(/^(a|an|the)\s+/i, "")
+    .replace(/[\s,;:.\-]+$/, "");
+}
 
 export async function POST(req: NextRequest) {
   let body: {
@@ -118,52 +171,73 @@ export async function POST(req: NextRequest) {
     .filter(Boolean)
     .join("\n");
 
+  const requestBody = JSON.stringify({
+    model: "claude-sonnet-5",
+    max_tokens: 2500,
+    system: MATCH_SYSTEM,
+    messages: [
+      {
+        role: "user",
+        content: `THE TREND POOL:\n${poolForPrompt(excludeIds)}\n\nTHE BRAND:\n${context}\n\nSelect and rank the best-fitting trends.`
+      }
+    ],
+    tools: [MATCH_TOOL],
+    tool_choice: { type: "tool", name: "match_trends" }
+  });
+
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01"
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-5",
-        max_tokens: 2500,
-        temperature: 1,
-        system:
-          "You are the trend-matching engine behind Juju's Studio. You are given a pool of real, published upcoming fashion/beauty/culture trend forecasts (each compiled from a named source) and a description of a real brand. Select the trends from the pool most relevant to that brand's realm, audience, and market, and explain each fit concretely. Only use trends from the pool — the schema enforces this. Rank by fit, best first. If refinement context (location, audience, notes) is provided, weight it heavily.",
-        messages: [
-          {
-            role: "user",
-            content: `THE TREND POOL:\n${poolForPrompt(excludeIds)}\n\nTHE BRAND:\n${context}\n\nSelect and rank the best-fitting trends.`
-          }
-        ],
-        tools: [MATCH_TOOL],
-        tool_choice: { type: "tool", name: "match_trends" }
-      })
+    let matches: SalvagedMatch[] = [];
+    let realm = "";
+    let providerError: string | null = null;
+
+    // Two attempts. The array-emitting step derails now and then and a
+    // second ask comes back clean; retrying here is far cheaper than
+    // making her retype a description that was never the problem.
+    for (let attempt = 0; attempt < 2 && matches.length === 0; attempt++) {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01"
+        },
+        body: requestBody
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        providerError = `AI provider error (${response.status}): ${errText.slice(0, 300)}`;
+        // A 4xx is our own bad request and will fail identically on retry.
+        if (response.status < 500) break;
+        continue;
+      }
+
+      const data = await response.json();
+      const toolUse = (data.content ?? []).find(
+        (block: { type: string }) => block.type === "tool_use"
+      );
+      if (!toolUse) continue;
+
+      matches = salvageMatches(toolUse.input);
+      const got =
+        typeof toolUse.input?.realm === "string" ? toolUse.input.realm.trim() : "";
+      if (got) realm = got;
+    }
+
+    if (matches.length === 0) {
+      return NextResponse.json(
+        {
+          error:
+            providerError ??
+            "The trend matcher hiccuped on that one. Give it one more try - your description is fine."
+        },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json({
+      result: { realm: realm || fallbackRealm(brand), matches }
     });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      return NextResponse.json(
-        { error: `AI provider error (${response.status}): ${errText.slice(0, 300)}` },
-        { status: 502 }
-      );
-    }
-
-    const data = await response.json();
-    const toolUse = (data.content ?? []).find(
-      (block: { type: string }) => block.type === "tool_use"
-    );
-
-    if (!toolUse) {
-      return NextResponse.json(
-        { error: "The AI response didn't come back in the expected format. Try again." },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({ result: toolUse.input });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown server error." },

@@ -32,3 +32,9 @@ yarn-error.log*
 
 # Local scratch — safe to delete in Finder, never committed
 _to_delete/
+
+# scratch
+_patch*.py
+_p[0-9]*.py
+_m[0-9]*.py
+/_debug.log

@@ -7,6 +7,11 @@ import { checkRateLimit, RATE_LIMIT_MESSAGE } from "../../../lib/rateLimit";
 
 export const runtime = "nodejs";
 
+// Vercel kills a function at 10s by default. These generations run
+// well past that, so the ceiling has to be raised explicitly or the
+// request dies mid-flight and the user sees nothing at all.
+export const maxDuration = 60;
+
 // Forces Claude to return a structured object matching the same shape
 // used by the preset customer profiles in CustomerInsightBoard.tsx.
 const CUSTOMER_TOOL = {
@@ -162,7 +167,6 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: "claude-sonnet-5",
         max_tokens: 2500,
-        temperature: 1,
         system:
           "You are the customer strategy engine behind Juju's Studio, an AI tool that turns fashion and beauty trends into shopper personas for brand teams. Given a brand, product, or trend description from a real company, produce one sharp, specific customer profile by calling the generate_customer_profile tool. Always use gender-neutral they/them language for the persona, never she/her or he/him. Keep the tone editorial and confident, matching a luxury fashion/beauty brand voice. Be concrete and specific to what the user described, never generic filler." +
           ANALYTICS_SYSTEM_NOTE,
