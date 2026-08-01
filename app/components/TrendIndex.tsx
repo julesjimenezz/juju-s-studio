@@ -53,7 +53,7 @@ export function TrendIndex() {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-x-10 gap-y-5">
+          <div className="grid grid-cols-3 gap-x-5 sm:gap-x-10">
             {STATS.map(([value, label]) => (
               <div key={label}>
                 <p className="font-editorial text-3xl leading-none tabular-nums text-[#2B211C]">
