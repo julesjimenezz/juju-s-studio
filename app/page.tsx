@@ -103,12 +103,12 @@ export default function Home() {
     <main className="min-h-screen">
       <Nav />
 
-      <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 md:px-8 md:py-22 lg:grid-cols-[1.12fr_0.88fr]">
+      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
         <div>
           <p className="mb-5 text-xs font-bold uppercase tracking-[0.32em] text-[#9C8F84]">
             Fashion · Beauty · AI Strategy
           </p>
-          <h1 className="font-editorial max-w-3xl text-[3rem] leading-[1.04] text-[#2B211C] md:text-[3.75rem] lg:text-[4.5rem] xl:text-[5rem]">
+          <h1 className="font-editorial max-w-5xl text-[3rem] leading-[1.04] text-[#2B211C] md:text-[3.75rem] lg:text-[4.5rem] xl:text-[5rem]">
             AI-powered strategy for fashion and beauty teams.
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-8 text-[#2B211C]/75">
@@ -124,123 +124,6 @@ export default function Home() {
             <Button variant="secondary" href="/#workflow">
               See How It Works
             </Button>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="absolute -left-4 top-8 hidden h-44 w-44 rounded-full bg-[#C7A6A0]/28 blur-3xl md:block" />
-          <div className="relative rounded-[2.1rem] border border-[#2B211C]/10 bg-[#EFE7DA] p-3 shadow-[0_34px_95px_rgba(43,33,28,0.15)]">
-            <div className="rounded-[1.75rem] border border-[#2B211C]/10 bg-[#F8F4ED] p-5 md:p-7">
-              <div className="mb-6 flex items-center gap-3 text-[0.66rem] font-bold uppercase tracking-[0.2em] text-[#9C8F84]">
-                <span>Juju's Studio</span>
-                <span className="h-px flex-1 bg-[#2B211C]/12" />
-                <span>Strategy Preview</span>
-              </div>
-              <div className="flex items-start justify-between gap-4 border-b border-[#2B211C]/10 pb-6">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.26em] text-[#9C8F84]">
-                    Trend Signal
-                  </p>
-                  <h2 className="font-editorial mt-3 text-4xl leading-none md:text-5xl">
-                    Elevated Minimalism
-                  </h2>
-                </div>
-                <span className="whitespace-nowrap rounded-full bg-[#C7A6A0]/35 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] md:text-xs md:tracking-[0.18em]">
-                  Live Brief
-                </span>
-              </div>
-
-              <div className="mt-6 grid gap-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex flex-col items-center justify-center rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
-                    <svg viewBox="0 0 160 92" className="w-full max-w-[150px]">
-                      <path
-                        d="M 18 78 A 62 62 0 0 1 142 78"
-                        fill="none"
-                        stroke="#2B211C"
-                        strokeOpacity="0.1"
-                        strokeWidth="13"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M 18 78 A 62 62 0 0 1 142 78"
-                        fill="none"
-                        stroke="#3B5D4A"
-                        strokeWidth="13"
-                        strokeLinecap="round"
-                        strokeDasharray="159.7 194.8"
-                      />
-                      <text
-                        x="80"
-                        y="74"
-                        textAnchor="middle"
-                        className="font-editorial"
-                        fontSize="30"
-                        fill="#2B211C"
-                      >
-                        82
-                      </text>
-                    </svg>
-                    <p className="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#9C8F84]">
-                      Trend Momentum
-                    </p>
-                  </div>
-                  <div className="grid gap-3">
-                    <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
-                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#9C8F84]">
-                        Opportunity
-                      </p>
-                      <p className="mt-1 font-editorial text-2xl leading-none text-[#2B211C]">
-                        71
-                      </p>
-                    </div>
-                    <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
-                      <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#9C8F84]">
-                        Primary Channel
-                      </p>
-                      <p className="mt-1 font-editorial text-xl leading-none text-[#2B211C]">
-                        TikTok
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-[1.1rem] border border-[#2B211C]/10 bg-white/38 p-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-[#9C8F84]">
-                      Channel Priority
-                    </p>
-                    <span className="rounded-full border border-[#3B5D4A]/30 bg-[#3B5D4A]/10 px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-[0.14em] text-[#3B5D4A]">
-                      AI analysis
-                    </span>
-                  </div>
-                  <div className="mt-3 flex flex-col gap-2.5">
-                    {[
-                      ["TikTok", "92", "100%"],
-                      ["Reels", "74", "80%"],
-                      ["UGC", "58", "63%"]
-                    ].map(([name, score, width]) => (
-                      <div key={name}>
-                        <div className="mb-1 flex items-baseline justify-between">
-                          <span className="text-xs font-semibold text-[#2B211C]">
-                            {name}
-                          </span>
-                          <span className="text-[0.65rem] font-bold text-[#3B5D4A]">
-                            {score}
-                          </span>
-                        </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-[#2B211C]/8">
-                          <div
-                            className="h-full rounded-full bg-[#3B5D4A]"
-                            style={{ width }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
