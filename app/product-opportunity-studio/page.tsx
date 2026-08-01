@@ -31,8 +31,7 @@ export default function ProductOpportunityStudioPage() {
             Turn a trend into a merchandising plan.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-[#2B211C]/75 md:text-lg">
-            Describe your brand and get the hero products, the bundle, and the
-            retail angle &mdash; built around a trend that fits what you already sell.
+            Describe your brand. Get the products, the bundle, the retail angle.
           </p>
           <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#2B211C]">
             Built on 102 sourced 2026 trends

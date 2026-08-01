@@ -31,8 +31,7 @@ export default function CampaignLabPage() {
             Turn one trend into a full campaign.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-[#2B211C]/75 md:text-lg">
-            Describe your brand and get the concept, the channel plan, and the
-            next steps &mdash; built around a trend that actually fits you.
+            Describe your brand. Get a campaign you could brief tomorrow.
           </p>
           <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#2B211C]">
             Built on 102 sourced 2026 trends

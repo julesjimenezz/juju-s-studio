@@ -319,94 +319,46 @@ function GenerateCustomerPanel() {
 const GUIDE_STEPS: GuideStep[] = [
   {
     label: "What to do",
-    heading: "Describe the brand, not the customer.",
-    body:
-      "You do not need a persona going in \u2014 that is the output. Just say what you sell and where you sell it.",
-    points: [
-      "What you sell, and at what price",
-      "Where you sell it \u2014 DTC, wholesale, retail",
-      "Who you think buys it, if you have a guess"
-    ]
+    heading: "Describe the brand, not the customer. The profile is what comes back."
   },
   {
-    label: "Why it works for you",
-    heading: "It names the objection, not just the audience.",
-    body:
-      "Most persona decks describe someone aspirational. This one is built to be used: it tells you what is stopping the purchase and gives you the wording to get past it.",
-    points: [
-      "A shopper tied to a sourced 2026 trend",
-      "Barriers stated plainly, so you can answer them",
-      "Channel-by-channel advice on how to approach them"
-    ]
+    label: "Why it works",
+    heading:
+      "It names the objection stopping the sale, not just the audience buying."
   },
   {
-    label: "How to do it",
-    heading: "Read the barriers first.",
-    body:
-      "The persona is the easy part. The barriers and the quote are what change your copy, so start there and work backwards.",
-    points: [
-      "Describe your brand in the panel below",
-      "Start with the barriers and the quote",
-      "Download as PDF and hand it to whoever writes"
-    ]
+    label: "What you get",
+    heading:
+      "What they want, what stops them, where to reach them \u2014 as a PDF."
   }
 ];
 
 const SAMPLE_BLOCKS: SampleBlock[] = [
   {
-    label: "What They Want",
+    label: "What she wants",
     body:
-      "To look deliberate without spending the day adjusting a waistband."
+      "To look like she planned the outfit, not like she is going to court."
   },
   {
-    label: "In Their Words",
+    label: "What stops her",
     body:
-      "\u201cI want to look like I planned the outfit, not like I am going to court.\u201d"
+      "Structure reads stiff, and she has been burned by a jacket she never wore."
   },
   {
-    label: "Barriers",
-    list: [
-      "Assumes structured means stiff",
-      "Burned before by sets that fit one half of her",
-      "Cannot picture where she would wear it twice"
-    ]
-  },
-  {
-    label: "Where To Reach Them",
-    body:
-      "Instagram and Pinterest for the styling proof; email for the fit detail that actually closes it."
-  },
-  {
-    label: "How To Approach",
-    body:
-      "Lead with movement, not silhouette. Show it sitting, reaching, carrying something."
-  },
-  {
-    label: "Next Steps",
-    list: [
-      "Reshoot product imagery seated, not standing",
-      "Add a fit-and-fabric line above the fold",
-      "Answer the return objection inside the size guide"
-    ]
+    label: "How to reach her",
+    body: "Styling content over product shots. Show it sat down, not stood up."
   }
 ];
 
 export function CustomerInsightBoard() {
   return (
     <div>
-      <ModuleGuide
-        intro="Customer Insight Board builds the person on the other side of the trend — what they actually want, what is stopping them from buying, and which channels reach them. Here is what to do, why it is worth doing, and how to get there."
-        steps={GUIDE_STEPS}
-      />
-
+      <ModuleGuide steps={GUIDE_STEPS} />
       <SampleCard
-        kicker={"Sample customer profile \u00b7 Marlow Studio \u00d7 \u201cSoft Structure\u201d"}
         title="The Reluctant Tailoring Buyer"
         tagline="She owns a blazer. She does not wear it."
-        lede="She likes how structure looks on other people and assumes it will feel like a costume on her, so she keeps buying the soft version and feeling underdressed."
         blocks={SAMPLE_BLOCKS}
       />
-
       <GenerateCustomerPanel />
     </div>
   );

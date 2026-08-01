@@ -31,8 +31,7 @@ export default function CustomerInsightBoardPage() {
             Understand them before you build for them.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-[#2B211C]/75 md:text-lg">
-            Describe your brand and get the shopper behind the trend &mdash; what
-            they want, what stops them, and where to reach them.
+            Describe your brand. Get the shopper behind the trend.
           </p>
           <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#C7A6A0]/45 bg-[#C7A6A0]/18 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-[#2B211C]">
             Built on 102 sourced 2026 trends
