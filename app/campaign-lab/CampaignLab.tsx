@@ -12,6 +12,12 @@ import {
   initialAccessCode,
   rememberAccessCode
 } from "../components/AccessCodeField";
+import {
+  ModuleGuide,
+  SampleCard,
+  type GuideStep,
+  type SampleBlock
+} from "../components/ModuleGuide";
 
 const GENERATION_STAGES = [
   "Reading your brand description…",
@@ -306,32 +312,96 @@ function GenerateCampaignPanel() {
   );
 }
 
-export function CampaignLab({ campaigns }: { campaigns: Campaign[] }) {
-  const [selected, setSelected] = useState(0);
-  const campaign = campaigns[selected];
+const GUIDE_STEPS: GuideStep[] = [
+  {
+    label: "What to do",
+    heading: "Describe your brand in a few sentences.",
+    body:
+      "That is the entire input. No brief template, no mood board, no trend research first.",
+    points: [
+      "What you sell, and roughly what it costs",
+      "Who actually buys it today",
+      "The season, launch or moment you are planning for"
+    ]
+  },
+  {
+    label: "Why it works for you",
+    heading: "The concept comes with a reason attached.",
+    body:
+      "Every campaign is built off the trend index \u2014 102 upcoming trends, each traced to a published forecast. You get a concept you can defend in a meeting, not a mood.",
+    points: [
+      "Grounded in named sources, not invented trends",
+      "An insight and a why-this-works you can quote",
+      "A full brief in about a minute instead of a week"
+    ]
+  },
+  {
+    label: "How to do it",
+    heading: "Generate it, read it, then download it.",
+    body:
+      "Paste your description into the panel below and hit generate. The brief appears on screen and saves straight to PDF.",
+    points: [
+      "Paste your brand description below",
+      "Read the concept, pillars and channel ideas",
+      "Download as PDF, or generate another angle"
+    ]
+  }
+];
 
+const SAMPLE_BLOCKS: SampleBlock[] = [
+  {
+    label: "Campaign Pillars",
+    list: [
+      "Structure that moves",
+      "One piece, three settings",
+      "Fit shown on real bodies"
+    ]
+  },
+  {
+    label: "Social Idea",
+    body:
+      "A single-take film of one blazer worn from desk to dinner, with no outfit change."
+  },
+  {
+    label: "Email Concept",
+    body:
+      "Subject line \u201cSit down in it.\u201d \u2014 one hero jacket, three styling notes, one link."
+  },
+  {
+    label: "Influencer Angle",
+    body:
+      "A working stylist who dresses clients, not a lifestyle creator. She demonstrates the fit rather than describing it."
+  },
+  {
+    label: "Why This Works",
+    body:
+      "It answers a real objection \u2014 that structured clothing reads uncomfortable \u2014 instead of restating the trend."
+  },
+  {
+    label: "Next Steps",
+    list: [
+      "Pick the one hero piece the campaign hangs on",
+      "Shoot the desk-to-dinner film first",
+      "Brief the stylist before the paid plan"
+    ]
+  }
+];
+
+export function CampaignLab() {
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-2">
-        {campaigns.map((c, index) => (
-          <button
-            key={c.trend}
-            type="button"
-            onClick={() => setSelected(index)}
-            className={`inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
-              selected === index
-                ? "border-[#3B5D4A] bg-[#3B5D4A] text-[#F8F4ED]"
-                : "border-[#2B211C]/20 bg-[#F8F4ED]/60 text-[#2B211C]/70 hover:border-[#2B211C]/45"
-            }`}
-          >
-            {c.trend}
-          </button>
-        ))}
-      </div>
+      <ModuleGuide
+        intro="Campaign Lab turns a single trend into a campaign you could brief a team on tomorrow — concept, pillars, channel ideas and next steps. Here is what to do, why it is worth doing, and how to get there."
+        steps={GUIDE_STEPS}
+      />
 
-      <div className="mt-10">
-        <CampaignBrief campaign={campaign} />
-      </div>
+      <SampleCard
+        kicker={"Sample campaign brief \u00b7 Marlow Studio \u00d7 \u201cSoft Structure\u201d"}
+        title="Hold the Shape"
+        tagline="Tailoring you can actually sit down in."
+        lede="Marlow Studio’s customer wants to look put together at 9am and still be comfortable at 7pm. The trend gives her permission to buy structure that gives."
+        blocks={SAMPLE_BLOCKS}
+      />
 
       <GenerateCampaignPanel />
     </div>

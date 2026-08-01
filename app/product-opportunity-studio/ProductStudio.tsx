@@ -12,6 +12,12 @@ import {
   initialAccessCode,
   rememberAccessCode
 } from "../components/AccessCodeField";
+import {
+  ModuleGuide,
+  SampleCard,
+  type GuideStep,
+  type SampleBlock
+} from "../components/ModuleGuide";
 
 const GENERATION_STAGES = [
   "Reading your brand description…",
@@ -301,36 +307,96 @@ function GenerateProductPanel() {
   );
 }
 
-export function ProductStudio({
-  opportunities
-}: {
-  opportunities: ProductOpportunity[];
-}) {
-  const [selected, setSelected] = useState(0);
-  const opportunity = opportunities[selected];
+const GUIDE_STEPS: GuideStep[] = [
+  {
+    label: "What to do",
+    heading: "Tell it what you sell and who buys it.",
+    body:
+      "Two or three sentences about your assortment is enough. It works far better with a category and a price band than with adjectives.",
+    points: [
+      "Your category and rough price band",
+      "What already sells well for you",
+      "The drop, season or gap you are trying to fill"
+    ]
+  },
+  {
+    label: "Why it works for you",
+    heading: "It gets you past the blank line sheet.",
+    body:
+      "Instead of guessing which trend to buy into, you get a specific edit \u2014 named products, a bundle with a reason to exist, and the merchandising logic behind both.",
+    points: [
+      "Product ideas tied to a sourced 2026 trend",
+      "A bundle with a stated reason it converts",
+      "A cross-sell and retail angle you can hand to buying"
+    ]
+  },
+  {
+    label: "How to do it",
+    heading: "Generate it, then edit it down.",
+    body:
+      "What comes back is a starting assortment, not a purchase order. Treat it as the first draft you argue with.",
+    points: [
+      "Describe your brand in the panel below",
+      "Read the hero products and the bundle logic",
+      "Download as PDF, or regenerate with a tighter brief"
+    ]
+  }
+];
 
+const SAMPLE_BLOCKS: SampleBlock[] = [
+  {
+    label: "Hero Products",
+    list: [
+      "Unlined stretch-wool blazer",
+      "Wide-leg trouser with a soft waistband",
+      "Knit shell that reads as tailoring"
+    ]
+  },
+  {
+    label: "Featured Bundle",
+    body:
+      "\u201cThe Sit-Down Suit\u201d \u2014 blazer plus trouser at a 15% set price, sized independently."
+  },
+  {
+    label: "Why The Bundle Works",
+    body:
+      "Independent sizing removes the single biggest reason two-piece sets come back."
+  },
+  {
+    label: "Cross-Sell",
+    body:
+      "A low block heel or clean loafer at checkout. The shoe decides whether the trouser gets worn."
+  },
+  {
+    label: "Retail Angle",
+    body:
+      "Merchandise it as a fitting-room story rather than a rack \u2014 one look, styled three ways, in store."
+  },
+  {
+    label: "Next Steps",
+    list: [
+      "Confirm the blazer can be produced unlined at margin",
+      "Test the set price against selling both separately",
+      "Sample the trouser waistband before committing"
+    ]
+  }
+];
+
+export function ProductStudio() {
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-2">
-        {opportunities.map((o, index) => (
-          <button
-            key={o.trend}
-            type="button"
-            onClick={() => setSelected(index)}
-            className={`inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
-              selected === index
-                ? "border-[#3B5D4A] bg-[#3B5D4A] text-[#F8F4ED]"
-                : "border-[#2B211C]/20 bg-[#F8F4ED]/60 text-[#2B211C]/70 hover:border-[#2B211C]/45"
-            }`}
-          >
-            {o.trend}
-          </button>
-        ))}
-      </div>
+      <ModuleGuide
+        intro="Product Opportunity Studio turns a trend into something you can put on a line sheet — hero products, a bundle concept, a cross-sell and a retail angle. Here is what to do, why it is worth doing, and how to get there."
+        steps={GUIDE_STEPS}
+      />
 
-      <div className="mt-10">
-        <ProductBrief opportunity={opportunity} />
-      </div>
+      <SampleCard
+        kicker={"Sample product edit \u00b7 Marlow Studio \u00d7 \u201cSoft Structure\u201d"}
+        title="The Nine-to-Nine Edit"
+        tagline="Six pieces that hold their shape and their comfort."
+        lede="A small structured capsule aimed at the customer who already owns a blazer she never wears, because it does not move with her."
+        blocks={SAMPLE_BLOCKS}
+      />
 
       <GenerateProductPanel />
     </div>

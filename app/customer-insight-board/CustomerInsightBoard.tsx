@@ -12,6 +12,12 @@ import {
   initialAccessCode,
   rememberAccessCode
 } from "../components/AccessCodeField";
+import {
+  ModuleGuide,
+  SampleCard,
+  type GuideStep,
+  type SampleBlock
+} from "../components/ModuleGuide";
 
 const GENERATION_STAGES = [
   "Reading your brand description…",
@@ -310,36 +316,96 @@ function GenerateCustomerPanel() {
   );
 }
 
-export function CustomerInsightBoard({
-  profiles
-}: {
-  profiles: CustomerProfile[];
-}) {
-  const [selected, setSelected] = useState(0);
-  const profile = profiles[selected];
+const GUIDE_STEPS: GuideStep[] = [
+  {
+    label: "What to do",
+    heading: "Describe the brand, not the customer.",
+    body:
+      "You do not need a persona going in \u2014 that is the output. Just say what you sell and where you sell it.",
+    points: [
+      "What you sell, and at what price",
+      "Where you sell it \u2014 DTC, wholesale, retail",
+      "Who you think buys it, if you have a guess"
+    ]
+  },
+  {
+    label: "Why it works for you",
+    heading: "It names the objection, not just the audience.",
+    body:
+      "Most persona decks describe someone aspirational. This one is built to be used: it tells you what is stopping the purchase and gives you the wording to get past it.",
+    points: [
+      "A shopper tied to a sourced 2026 trend",
+      "Barriers stated plainly, so you can answer them",
+      "Channel-by-channel advice on how to approach them"
+    ]
+  },
+  {
+    label: "How to do it",
+    heading: "Read the barriers first.",
+    body:
+      "The persona is the easy part. The barriers and the quote are what change your copy, so start there and work backwards.",
+    points: [
+      "Describe your brand in the panel below",
+      "Start with the barriers and the quote",
+      "Download as PDF and hand it to whoever writes"
+    ]
+  }
+];
 
+const SAMPLE_BLOCKS: SampleBlock[] = [
+  {
+    label: "What They Want",
+    body:
+      "To look deliberate without spending the day adjusting a waistband."
+  },
+  {
+    label: "In Their Words",
+    body:
+      "\u201cI want to look like I planned the outfit, not like I am going to court.\u201d"
+  },
+  {
+    label: "Barriers",
+    list: [
+      "Assumes structured means stiff",
+      "Burned before by sets that fit one half of her",
+      "Cannot picture where she would wear it twice"
+    ]
+  },
+  {
+    label: "Where To Reach Them",
+    body:
+      "Instagram and Pinterest for the styling proof; email for the fit detail that actually closes it."
+  },
+  {
+    label: "How To Approach",
+    body:
+      "Lead with movement, not silhouette. Show it sitting, reaching, carrying something."
+  },
+  {
+    label: "Next Steps",
+    list: [
+      "Reshoot product imagery seated, not standing",
+      "Add a fit-and-fabric line above the fold",
+      "Answer the return objection inside the size guide"
+    ]
+  }
+];
+
+export function CustomerInsightBoard() {
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-2">
-        {profiles.map((p, index) => (
-          <button
-            key={p.trend}
-            type="button"
-            onClick={() => setSelected(index)}
-            className={`inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition ${
-              selected === index
-                ? "border-[#3B5D4A] bg-[#3B5D4A] text-[#F8F4ED]"
-                : "border-[#2B211C]/20 bg-[#F8F4ED]/60 text-[#2B211C]/70 hover:border-[#2B211C]/45"
-            }`}
-          >
-            {p.trend}
-          </button>
-        ))}
-      </div>
+      <ModuleGuide
+        intro="Customer Insight Board builds the person on the other side of the trend — what they actually want, what is stopping them from buying, and which channels reach them. Here is what to do, why it is worth doing, and how to get there."
+        steps={GUIDE_STEPS}
+      />
 
-      <div className="mt-10">
-        <CustomerBrief profile={profile} />
-      </div>
+      <SampleCard
+        kicker={"Sample customer profile \u00b7 Marlow Studio \u00d7 \u201cSoft Structure\u201d"}
+        title="The Reluctant Tailoring Buyer"
+        tagline="She owns a blazer. She does not wear it."
+        lede="She likes how structure looks on other people and assumes it will feel like a costume on her, so she keeps buying the soft version and feeling underdressed."
+        blocks={SAMPLE_BLOCKS}
+      />
 
       <GenerateCustomerPanel />
     </div>
