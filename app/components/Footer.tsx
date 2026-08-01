@@ -3,7 +3,7 @@ import Link from "next/link";
 const navigateLinks = [
   { href: "/", label: "Home" },
   { href: "/studio", label: "The Guided Studio" },
-  { href: "/#trends", label: "Trend Index" },
+  { href: "/studio#trends", label: "Trend Index" },
   { href: "/campaign-lab", label: "Campaign Lab" },
   { href: "/product-opportunity-studio", label: "Product Opportunity Studio" },
   { href: "/customer-insight-board", label: "Customer Insight Board" }

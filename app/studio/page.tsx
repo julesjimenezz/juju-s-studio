@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { StudioFlow } from "./StudioFlow";
+import { TrendIndex } from "../components/TrendIndex";
+
+// The Trend Index below the header folds in the live Trend Pulse, whose
+// upstream data is cached for six hours. Matching that here keeps the
+// page static and warm in between refreshes.
+export const revalidate = 21600;
 
 export const metadata: Metadata = {
   title: "The Studio | Juju's Studio",
@@ -14,7 +20,7 @@ export default function StudioPage() {
     <main className="min-h-screen">
       <Nav />
 
-      <header className="mx-auto max-w-4xl px-5 pb-4 pt-16 text-center md:px-8 md:pt-20">
+      <header className="mx-auto max-w-4xl px-5 pb-12 pt-16 text-center md:px-8 md:pt-20">
         <p className="mb-5 text-xs font-bold uppercase tracking-[0.32em] text-[#9C8F84]">
           The Guided Studio
         </p>
@@ -29,7 +35,9 @@ export default function StudioPage() {
         </p>
       </header>
 
-      <section className="mx-auto max-w-7xl px-5 py-12 md:px-8">
+      <TrendIndex />
+
+      <section className="mx-auto max-w-7xl px-5 pb-12 pt-14 md:px-8">
         <StudioFlow />
       </section>
 
