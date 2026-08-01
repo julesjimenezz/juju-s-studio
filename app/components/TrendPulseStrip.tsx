@@ -108,16 +108,18 @@ export async function TrendPulseStripLive() {
               <p className="truncate text-sm font-semibold text-[#2B211C]">
                 {t.name}
               </p>
-              <span
-                className={`shrink-0 text-[0.68rem] font-bold ${t.changePct >= 0 ? "text-[#3B5D4A]" : "text-[#9C8F84]"}`}
-              >
-                {t.changePct > 0 ? "\u25b2 +" : t.changePct < 0 ? "\u25bc " : ""}
-                {t.changePct}%
+              {/* The reading is the level of attention, not the week-over-week
+                  wobble. A change badge on a home page turns three healthy
+                  signals into a decline leaderboard whenever a topic happens
+                  to be resting -- the shape of the curve already tells that
+                  story, honestly and without a headline number. */}
+              <span className="shrink-0 text-[0.68rem] font-bold tabular-nums text-[#3B5D4A]">
+                {t.latest.toLocaleString("en-US")}
               </span>
             </div>
             <Spark series={t.series} />
             <p className="mt-1 text-[0.62rem] text-[#2B211C]/45">
-              {t.latest.toLocaleString("en-US")} views / day
+              views / day
             </p>
           </div>
         ))}
