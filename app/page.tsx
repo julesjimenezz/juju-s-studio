@@ -72,26 +72,26 @@ const moduleCards = [
 ];
 
 const workflow = [
-  ["Trend", "Elevated Minimalism"],
+  ["Brand", "Marlow Studio \u2014 womenswear, workwear-leaning, mid-price."],
+  ["Trend", "Soft Structure"],
   [
     "Insight",
-    "Head-to-toe black tailoring is back, signaling a return to structured power dressing."
+    "Tailoring is being rebuilt for comfort \u2014 structure that gives, not structure that holds you in."
   ],
-  ["Campaign Idea", "Back to Power"],
+  ["Campaign Idea", "Hold the Shape"],
   [
     "Product Opportunity",
-    "Wool blazer, straight-leg trouser, silk camisole, sculptural bag."
+    "Unlined stretch-wool blazer, wide-leg trouser with a soft waistband, knit shell that reads as tailoring."
   ],
   [
     "Social Direction",
-    "\"One blazer, five outfits\" challenges and runway-to-real-life edits."
+    "One blazer worn desk to dinner, filmed in a single take. No outfit change."
   ],
   [
     "Retail Angle",
-    "Sell versatility, not newness — one piece across office, dinner, and travel."
+    "Merchandise it beside knitwear, not beside suiting."
   ]
 ];
-
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -148,9 +148,17 @@ export default function Home() {
             From trend to strategy, step by step.
           </h2>
           <p className="mt-5 max-w-xl text-base leading-7 text-[#F8F4ED]/75">
-            One trend, followed all the way through.
+            One brand, one trend, followed all the way through.
           </p>
-          <div className="mt-10 overflow-hidden rounded-[1.6rem] border border-[#F8F4ED]/14">
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            <span className="rounded-full border border-[#C7A6A0]/50 bg-[#C7A6A0]/20 px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#F8F4ED]">
+              Sample
+            </span>
+            <p className="text-xs leading-5 text-[#F8F4ED]/60">
+              Invented brand, invented trend. Yours is generated in the Studio.
+            </p>
+          </div>
+          <div className="mt-6 overflow-hidden rounded-[1.6rem] border border-[#F8F4ED]/14">
             {workflow.map(([label, value], index) => (
               <div
                 key={label}
